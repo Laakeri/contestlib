@@ -1,16 +1,20 @@
-//build parent array of tree O(n log n) space
-//query i:th parent in O(log n) time
-//query lca in O(log n) time
-//query distance in O(log n) time
-//uses 1-indexing
+// Build parent array of tree using O(n log n) space
+// Query i:th parent in O(log n) time
+// Query lca in O(log n) time
+// Query distance in O(log n) time
+// Uses 1-indexing
 #include <bits/stdc++.h>
 using namespace std;
 
 struct RootedTree{
-    vector<int> d;//depth
-    vector<array<int, 22> > p;//parent array
+	// This has to be at least ceil(log2(n))
+	const int logOfSize=22;
+	
+    vector<int> d;
+    vector<array<int, logOfSize> > p;
 
-    void dfs(vector<int>*g, int x, int pp, int dd){//init dfs
+	// Dfs for building parent array
+    void dfs(vector<int>*g, int x, int pp, int dd){
         p[x][0]=pp;
         for (int i=1;i<22;i++){
             p[x][i]=p[p[x][i-1]][i-1];
@@ -21,11 +25,15 @@ struct RootedTree{
         }
     }
 
+    // Construct parent array data structure of tree of size n
+    // g is the adjacency list of the tree
     RootedTree(vector<int>*g, int n, int root=1):d(n+1),p(n+1){
         dfs(g, root, 0, 0);
     }
 
-    int parent(int x, int h){//returns the node h edges above x. else 0 is returned
+    // Returns the node h edges above x.
+    // Returns 0 if no such node exists
+    int parent(int x, int h){
         for (int i=21;i>=0;i--){
             if ((1<<i)&h){
                 x=p[x][i];
@@ -34,7 +42,8 @@ struct RootedTree{
         return x;
     }
 
-    int lca(int a, int b){//returns lca of a and b
+    // Returns lca of nodes a and b
+    int lca(int a, int b){
         if (d[a]<d[b]) swap(a, b);
         a=parent(a, d[a]-d[b]);
         if (a==b) return a;
@@ -47,7 +56,8 @@ struct RootedTree{
         return p[a][0];
     }
 
-    int dist(int a, int b){//returns distance from a to b
+    // Returns distance from a to b
+    int dist(int a, int b){
         int l=lca(a, b);
         return d[a]+d[b]-2*d[l];
     }

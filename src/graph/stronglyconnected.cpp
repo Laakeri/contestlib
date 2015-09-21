@@ -1,6 +1,6 @@
-//kosarajus algorithm O(V+E)
-//components will be returned in topological order
-//uses 1-indexing
+// Uses Kosaraju's algorithm O(V+E)
+// Components will be returned in topological order
+// Uses 1-indexing
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,6 +8,7 @@ struct SCC{
     vector<int> used;
     vector<vector<int> > g2;
 
+	// First dfs
     void dfs1(vector<int>*g, int x, vector<int>&ns){
         if (used[x]==1) return;
         used[x]=1;
@@ -18,6 +19,7 @@ struct SCC{
         ns.push_back(x);
     }
 
+    // Second dfs
     void dfs2(int x, vector<int>&co){
         if (used[x]==2) return;
         used[x]=2;
@@ -27,6 +29,8 @@ struct SCC{
         }
     }
 
+    // Returns strongly connected components of the graph in vector ret
+    // n is the size of the graph, g is the adjacency list
     SCC(vector<int>*g, int n, vector<vector<int> >&ret):used(n+1),g2(n+1){
         vector<int> ns;
         for (int i=1;i<=n;i++){
