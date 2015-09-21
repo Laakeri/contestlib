@@ -1,5 +1,5 @@
-//Basic geometry functions using complex numbers
-
+// Basic geometry functions using complex numbers
+// Mostly copied from https://github.com/ttalvitie/libcontest/
 /* Useful functions of std
 	CT abs(co x): Length
 	CT norm(co x): Square of length
@@ -13,13 +13,13 @@ using namespace std;
 typedef long double ld;
 typedef long long ll;
 
-//Coordinate type
+// Coordinate type
 typedef ld CT;
 
 typedef complex<CT> co;
 
-//Rotate x with agle ang
-co rotate(co x, CT ang){
+// Rotate x with agle ang
+co rotate(co x, CT ang) {
 	return x*polar((CT)1, ang);
 }
 
