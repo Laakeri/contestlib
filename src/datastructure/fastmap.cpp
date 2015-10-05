@@ -19,7 +19,3 @@ struct FastMap {
 		return values[it-keys.begin()];
 	}
 };
-
-int main(){
-	
-}

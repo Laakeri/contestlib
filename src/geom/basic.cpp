@@ -18,11 +18,6 @@ typedef ld CT;
 
 typedef complex<CT> co;
 
-// Rotate x with agle ang
-co rotate(co x, CT ang) {
-	return x*polar((CT)1, ang);
-}
-
 // Return true iff points a, b, c are CCW oriented.
 bool ccw(co a, co b, co c) {
 	return ((c - a) * conj(b - a)).imag() > 0;
@@ -32,6 +27,11 @@ bool ccw(co a, co b, co c) {
 // NOTE: doesn't make much sense with non-integer CT.
 bool collinear(co a, co b, co c) {
 	return ((c - a) * conj(b - a)).imag() == 0;
+}
+
+// Rotate x with agle ang
+co rotate(co x, CT ang) {
+	return x*polar((CT)1, ang);
 }
 
 // Check whether segments [a, b] and [c, d] intersect.
