@@ -1,8 +1,7 @@
 // Implements map operations for keys known in construction
 // Undefined behavior when key doesn't exist
+// O(n log n) construction and O(log n) access
 #include <bits/stdc++.h>
-#define F first
-#define S second
 using namespace std;
 
 template<typename keyT, typename valueT>
