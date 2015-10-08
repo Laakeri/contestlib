@@ -20,13 +20,13 @@ typedef complex<CT> co;
 
 // Return true iff points a, b, c are CCW oriented.
 bool ccw(co a, co b, co c) {
-	return ((c - a) * conj(b - a)).imag() > 0;
+	return ((c - a) * conj(b - a)).Y > 0;
 }
 
 // Return true iff points a, b, c are collinear.
 // NOTE: doesn't make much sense with non-integer CT.
 bool collinear(co a, co b, co c) {
-	return ((c - a) * conj(b - a)).imag() == 0;
+	return ((c - a) * conj(b - a)).Y == 0;
 }
 
 // Rotate x with agle ang
@@ -50,22 +50,22 @@ co interpolate(CT t, co a, co b) {
 //  line defined by a and b.
 //  NOTE: no rounding behavior specified for integers.
 CT projectionParam(co v, co a, co b) {
-	return ((v - a) / (b - a)).real();
+	return ((v - a) / (b - a)).X;
 }
 
 //  Compute the distance of point v from line a..b.
 //  NOTE: Only for non-integers!
 CT pointLineDistance(co p, co a, co b) {
-	return abs(((p - a) / (b - a)).imag()) * abs(b - a);
+	return abs(((p - a) / (b - a)).Y) * abs(b - a);
 }
 
 //  Compute the distance of point v from segment a..b.
 //  NOTE: Only for non-integers!
 CT pointSegmentDistance(co p, co a, co b) {
 	co z = (p - a) / (b - a);
-	if(z.real() < 0) return abs(p - a);
-	if(z.real() > 1) return abs(p - b);
-	return abs(z.imag()) * abs(b - a);
+	if(z.X < 0) return abs(p - a);
+	if(z.X > 1) return abs(p - b);
+	return abs(z.Y) * abs(b - a);
 }
 
 //  Return interpolation parameter between a and b of the point that is also
@@ -74,5 +74,5 @@ CT pointSegmentDistance(co p, co a, co b) {
 CT intersectionParam(co a, co b, co c, co d) {
 	co u = (c - a) / (b - a);
 	co v = (d - a) / (b - a);
-	return (u.real() * v.imag() - u.imag() * v.real()) / (v.imag() - u.imag());
+	return (u.X * v.Y - u.Y * v.X) / (v.Y - u.Y);
 }
