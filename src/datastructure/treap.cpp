@@ -73,8 +73,3 @@ void split(pnode t, pnode& l, pnode& r, int k) {
 	}
 	upd(t);
 }
-
-int main() {
-	
-	
-}
