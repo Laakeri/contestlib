@@ -1,6 +1,7 @@
 // Deterministic Miller-Rabin primality test
 // Works for all 64 bit integers
 // Support of 128 bit integers is required to test over 32 bit integers
+// Source: http://qubit.pw/trophy.pdf
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -17,7 +18,7 @@ lll powmod(lll a, lll p, lll mod){
 bool is_w(ll a, ll even, ll odd, ll p){
 	lll u = powmod(a, odd, p);
 	if (u==1) return 0;
-	for (ll j=1;j<even;j*=2){
+	for (ll j=1;j<even;j*=2) {
 		if (u==p-1) return 0;
 		u*=u;
 		u%=p;
