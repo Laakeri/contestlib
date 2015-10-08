@@ -1,0 +1,7 @@
+\documentclass[11pt]{article}
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage[top=1cm, bottom=2cm, left=1cm, right=1cm]{geometry}
+\begin{document}
+\tableofcontents

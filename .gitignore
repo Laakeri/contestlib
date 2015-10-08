@@ -1,2 +1,7 @@
 *.o
+*.log
+*.aux
+*.tex
+*.toc
+asd
 test
