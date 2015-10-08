@@ -1,3 +1,3 @@
 # contestlib
 
-Functions for competitive programming
+Functions for programming contests
