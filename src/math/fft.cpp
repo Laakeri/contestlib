@@ -1,4 +1,5 @@
 // Fast Fourier transform and convolution using it
+// O(n log n)
 // Source: http://cses.fi/kkkk.pdf
 #include <bits/stdc++.h>
 using namespace std;
