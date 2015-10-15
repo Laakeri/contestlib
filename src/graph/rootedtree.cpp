@@ -6,9 +6,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// This has to be at least ceil(log2(n))
+const int logSize=22;
+
 struct RootedTree {
-	// This has to be at least ceil(log2(n))
-	const int logSize=22;
 	
 	vector<int> d;
 	vector<array<int, logSize> > p;
@@ -21,7 +22,9 @@ struct RootedTree {
 		}
 		d[x]=dd;
 		for (int nx:g[x]) {
-			dfs(g, nx, x, dd+1);
+			if (nx!=pp){
+				dfs(g, nx, x, dd+1);
+			}
 		}
 	}
 	
@@ -47,7 +50,7 @@ struct RootedTree {
 		if (d[a]<d[b]) swap(a, b);
 		a=parent(a, d[a]-d[b]);
 		if (a==b) return a;
-		for (int i=logSize;i>=0;i--) {
+		for (int i=logSize-1;i>=0;i--) {
 			if (p[a][i]!=p[b][i]) {
 				a=p[a][i];
 				b=p[b][i];
