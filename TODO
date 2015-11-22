@@ -5,7 +5,7 @@ Sorting points by angle
 2 pointers for iterating half plane
 Closest 2 points
 Farthest 2 points
-Miskowski sum of convex polygons
+Minkowski sum of convex polygons
 
 Strings:
 Aho-corasick
