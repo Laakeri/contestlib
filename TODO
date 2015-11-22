@@ -1,0 +1,29 @@
+Todo:
+
+Geometry:
+Sorting points by angle
+2 pointers for iterating half plane
+Closest 2 points
+Farthest 2 points
+Miskowski sum of convex polygons
+
+Strings:
+Aho-corasick
+
+Graphs:
+Mincost flow
+Cutvertices and 2-vertex-connected components
+
+Number theory:
+Extended euclidian algo
+Chinese remainder theorem http://e-maxx-eng.github.io/algebra/chinese-remainder-theorem.html
+Primitive root http://e-maxx-eng.github.io/algebra/primitive-root.html
+Discrete root http://e-maxx-eng.github.io/algebra/discrete-root.html
+
+Numeric:
+FFT modulo
+Numerical integration
+Berlekamp massey
+
+Other:
+Code for using builtin ordered set
