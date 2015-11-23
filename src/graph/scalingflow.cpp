@@ -37,9 +37,7 @@ struct maxFlow {
 		for (int i=1;i<=n;i++) {
 			g[i].clear();
 			for (int ii=1;ii<=n;ii++) {
-				if (f[i][ii]!=0||f[ii][i]!=0) {
-					g[i].push_back(ii);
-				}
+				if (f[i][ii]!=0||f[ii][i]!=0) g[i].push_back(ii);
 			}
 		}
 		cc=1;
@@ -57,7 +55,7 @@ struct maxFlow {
 	}
 	
 	void addEdge(int a, int b, ll c) {
-		f[a][b]=c;
+		f[a][b]+=c;
 	}
 	
 	maxFlow(int n) : f(n+1), g(n+1), used(n+1) {
