@@ -1,11 +1,8 @@
 Todo:
 
 Geometry:
-Sorting points by angle
 2 pointers for iterating half plane
 Closest 2 points
-Farthest 2 points
-Minkowski sum of convex polygons
 
 Strings:
 Aho-corasick
