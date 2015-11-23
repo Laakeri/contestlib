@@ -2,16 +2,15 @@
 // Uses Andrew's algorithm
 // The points on the edges of the hull are not listed
 // Change > to >= in ccw function to list the points on the edges
+// Returns points in counterclockwise order
 #include <bits/stdc++.h>
 #define X real()
 #define Y imag()
 using namespace std;
 typedef long double ld;
 typedef long long ll;
-
 // Coordinate type
 typedef ll CT;
-
 typedef complex<CT> co;
 
 bool ccw(co a, co b, co c) {
@@ -20,12 +19,8 @@ bool ccw(co a, co b, co c) {
 
 vector<co> convexHull(vector<co> ps) {
 	auto cmp = [](co a, co b) {
-		if (a.X==b.X) {
-			return a.Y<b.Y;
-		}
-		else {
-			return a.X<b.X;
-		}
+		if (a.X==b.X) return a.Y<b.Y;
+		else return a.X<b.X;
 	};
 	sort(ps.begin(), ps.end(), cmp);
 	ps.erase(unique(ps.begin(), ps.end()), ps.end());

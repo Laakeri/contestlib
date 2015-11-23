@@ -11,7 +11,6 @@ Strings:
 Aho-corasick
 
 Graphs:
-Mincost flow
 Cutvertices and 2-vertex-connected components
 
 Number theory:
@@ -24,6 +23,3 @@ Numeric:
 FFT modulo
 Numerical integration
 Berlekamp massey
-
-Other:
-Code for using builtin ordered set
