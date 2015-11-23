@@ -23,7 +23,6 @@ struct minCostFlow {
 	vector<int> from;
 	vector<int> inq;
 	queue<int> spfa;
-	int cc;
 	
 	void relax(int x, ll di, int p) {
 		if (di>=d[x]) return;
@@ -55,9 +54,7 @@ struct minCostFlow {
 			spfa.pop();
 			inq[x]=0;
 			for (int nx:g[x]) {
-				if (f[x][nx]>=miv) {
-					relax(nx, d[x]+c[x][nx], x);
-				}
+				if (f[x][nx]>=miv) relax(nx, d[x]+c[x][nx], x);
 			}
 		}
 		if (d[t]<inf) {
@@ -75,12 +72,9 @@ struct minCostFlow {
 		for (int i=1;i<=n;i++) {
 			g[i].clear();
 			for (int ii=1;ii<=n;ii++) {
-				if (f[i][ii]!=0||f[ii][i]!=0) {
-					g[i].push_back(ii);
-				}
+				if (f[i][ii]!=0||f[ii][i]!=0) g[i].push_back(ii);
 			}
 		}
-		cc=1;
 		ll r=0;
 		ll k=1;
 		ll co=0;
@@ -91,10 +85,8 @@ struct minCostFlow {
 				r+=t.F;
 				kf-=t.F;
 				co+=t.S;
-				cc++;
 				if (kf==0||t.F==0) break;
 			}
-			cc++;
 		}
 		return {r, co};
 	}
