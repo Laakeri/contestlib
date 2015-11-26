@@ -2,7 +2,6 @@ Todo:
 
 Geometry:
 Intersection point of 2 segments
-Closest 2 points
 2 pointers for iterating half plane (impossible to do properly)
 
 Strings:
@@ -12,11 +11,9 @@ Graphs:
 Cutvertices and 2-vertex-connected components
 
 Number theory:
-Primitive root http://e-maxx-eng.github.io/algebra/primitive-root.html
 Discrete root http://e-maxx-eng.github.io/algebra/discrete-root.html
 
 Numeric:
-FFT modulo
 Numerical integration
 Berlekamp massey
 

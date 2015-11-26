@@ -1,7 +1,32 @@
-\documentclass[11pt]{article}
+\documentclass[9pt,landscape,twocolumn,a4paper]{article}
 \PassOptionsToPackage{dvipsnames}{xcolor}
+\usepackage{fancyhdr}
 \usepackage{xcolor}
+\usepackage{extsizes}
 \usepackage{color}
-\usepackage[top=1cm, bottom=2cm, left=1cm, right=1cm]{geometry}
+\usepackage{multicol}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage[top=1.9cm, bottom=1.2cm, left=0.7cm, right=0.7cm]{geometry}
+\setlength\columnsep{20pt}
 \begin{document}
+\pagestyle{fancy}
+\lhead{\Huge University of Helsinki}
+\chead{}
+\rhead{\Huge \thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+\hspace*{-0.55cm}\begin{minipage}{\textwidth}
+\begin{center}\includegraphics[width=22cm]{hylogo.pdf}\end{center}
+\end{minipage}
+\clearpage
+\begin{minipage}{\textwidth}
+\vspace*{1.4cm}
+\begin{center}\includegraphics[width=23cm, trim=0 0 5 0]{motivaatiovalas.pdf}\end{center}
+\end{minipage}
+\clearpage
+\setlength{\columnseprule}{0.4pt}
+
 \tableofcontents
