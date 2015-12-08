@@ -1,3 +1,4 @@
+// TCR
 // O(n log n) offline solution for dynamic connectivity problem
 // ? count the number of connected components
 // + A B add edge between A and B

@@ -1,3 +1,6 @@
+// TCR
+// Online suffix automaton construction algorithm
+// Time complexity of adding one character is amortized O(1)
 #include <bits/stdc++.h>
 using namespace std;
 

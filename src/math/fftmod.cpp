@@ -1,25 +1,26 @@
-// precise FFT modulo mod
+// TCR
+// Precise FFT modulo mod
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-//luku muotoa (2^20)*k+1
+// luku muotoa (2^20)*k+1
 const ll mod=1045430273;
-//luku jonka order 2^20
+// luku jonka order 2^20
 const ll root=363;
-//sen kaanteisluku
+// sen kaanteisluku
 const ll root_1=296637240;
 const ll root_pw=1<<20;
 
-ll pot(ll x, ll p){
+ll pot(ll x, ll p) {
 	if (p==0) return 1;
-	if (p%2==0){
+	if (p%2==0) {
 		x=pot(x, p/2);
 		return (x*x)%mod;
 	}
 	return (x*pot(x, p-1))%mod;
 }
 
-ll inv(ll x){
+ll inv(ll x) {
 	return pot(x, mod-2);
 }
 
@@ -93,12 +94,12 @@ vector<ll> conv(vector<ll> a, vector<ll> b) {
 	return c;
 }
 
-int main(){
+int main() {
 	// Shoud print 12 11 30 7
 	vector<ll> a={3, 2, 7};
 	vector<ll> b={4, 1};
 	vector<ll> c=conv(a, b);
-	for (ll t:c){
+	for (ll t:c) {
 		cout<<t<<endl;
 	}
 }

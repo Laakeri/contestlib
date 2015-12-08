@@ -1,3 +1,4 @@
+// TCR
 // Returns square of distance between closest 2 points
 // O(n log n)
 #include <bits/stdc++.h>
@@ -11,14 +12,14 @@ typedef complex<ll> co;
 
 const ll inf=2e18;
 
-ll csqrt(ll x){
+ll csqrt(ll x) {
 	ll r=sqrt(x);
 	while (r*r<x) r++;
 	while (r*r>x) r--;
 	return r;
 }
 
-ll sq(ll x){
+ll sq(ll x) {
 	return x*x;
 }
 
@@ -38,7 +39,7 @@ ll closestPoints(vector<co> points) {
 			i2++;
 		}
 		auto it=pss.lower_bound({ps[i].S-csqrt(d), -inf});
-		for (;it!=pss.end();it++){
+		for (;it!=pss.end();it++) {
 			if (sq(it->F-ps[i].S)>d) break;
 			d=min(d, sq(it->F-ps[i].S)+sq(it->S-ps[i].F));
 		}

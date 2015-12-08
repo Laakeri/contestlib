@@ -1,3 +1,4 @@
+// TCR
 // Suffix array in O(n log^2 n)
 // ~300ms runtime for 10^5 character string, ~2000ms for 5*10^5
 // You can change vector<int> s to string s

@@ -11,8 +11,7 @@ typedef long long ll;
 
 const int inf=2e9;
 
-struct maxFlow{
-	
+struct MaxFlow {
 	vector<vector<int> > f;
 	vector<vector<int> > g;
 	vector<int> fr;
@@ -22,26 +21,26 @@ struct maxFlow{
 		queue<pair<pair<int, int>, int> > bfs;
 		bfs.push({{0, so}, inf});
 		int fl=0;
-		while(!bfs.empty()){
+		while(!bfs.empty()) {
 			auto x=bfs.front();
 			bfs.pop();
 			if (used[x.F.S]) continue;
 			used[x.F.S]=1;
 			fr[x.F.S]=x.F.F;
-			if (x.F.S==si){
+			if (x.F.S==si) {
 				fl=x.S;
 				break;
 			}
-			for (int nx:g[x.F.S]){
-				if (f[x.F.S][nx]>0){
+			for (int nx:g[x.F.S]) {
+				if (f[x.F.S][nx]>0) {
 					bfs.push({{x.F.S, nx}, min(x.S, f[x.F.S][nx])});
 				}
 			}
 		}
 		for (int i=1;i<=n;i++) used[i]=0;
-		if (fl>0){
+		if (fl>0) {
 			int x=si;
-			while (fr[x]>0){
+			while (fr[x]>0) {
 				f[x][fr[x]]+=fl;
 				f[fr[x]][x]-=fl;
 				x=fr[x];
@@ -51,18 +50,18 @@ struct maxFlow{
 		return 0;
 	}
 	
-	ll getMaxFlow(int source, int sink){
+	ll getMaxFlow(int source, int sink) {
 		int n=fr.size()-1;
-		for (int i=1;i<=n;i++){
+		for (int i=1;i<=n;i++) {
 			g[i].clear();
-			for (int ii=1;ii<=n;ii++){
-				if (f[i][ii]!=0||f[ii][i]!=0){
+			for (int ii=1;ii<=n;ii++) {
+				if (f[i][ii]!=0||f[ii][i]!=0) {
 					g[i].push_back(ii);
 				}
 			}
 		}
 		ll r=0;
-		while (1){
+		while (1) {
 			int fl=flow(source, sink, n);
 			if (fl==0) break;
 			r+=(ll)fl;
@@ -70,11 +69,11 @@ struct maxFlow{
 		return r;
 	}
 	
-	void addEdge(int a, int b, int c){
+	void addEdge(int a, int b, int c) {
 		f[a][b]=c;
 	}
 	
-	maxFlow(int n) : f(n+1), g(n+1), fr(n+1), used(n+1) {
+	MaxFlow(int n) : f(n+1), g(n+1), fr(n+1), used(n+1) {
 		for (int i=1;i<=n;i++){
 			f[i]=vector<int>(n+1);
 		}

@@ -1,6 +1,6 @@
+// TCR
 // Fast Fourier transform and convolution using it
 // O(n log n)
-// Source: http://cses.fi/kkkk.pdf
 #include <bits/stdc++.h>
 using namespace std;
 typedef long double ld;
@@ -65,18 +65,18 @@ vector<ll> conv(vector<ll> a, vector<ll> b) {
 	c=fft(c, -1);
 	c.resize(as+bs-1);
 	vector<ll> r(as+bs-1);
-	for (int i=0;i<as+bs-1;i++){
+	for (int i=0;i<as+bs-1;i++) {
 		r[i]=(ll)round(c[i].real());
 	}
 	return r;
 }
 
-int main(){
+int main() {
 	// Shoud print 12 11 30 7
 	vector<ll> a={3, 2, 7};
 	vector<ll> b={4, 1};
 	vector<ll> c=conv(a, b);
-	for (ll t:c){
+	for (ll t:c) {
 		cout<<t<<endl;
 	}
 }

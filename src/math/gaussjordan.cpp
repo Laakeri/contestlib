@@ -1,4 +1,5 @@
-// Solves system of linear equations in O(n^3)
+// TCR
+// Solves system of linear equations in O(n m^2)
 // Using doubles or mod 2
 // Using doubles might have large precision errors or overflow
 // Returns 0 if no solution exists, 1 if there is one solution

@@ -7,7 +7,7 @@
 \usepackage{multicol}
 \usepackage{pdflscape}
 \usepackage{graphicx}
-\usepackage[top=1.9cm, bottom=1.2cm, left=0.7cm, right=0.7cm]{geometry}
+\usepackage[top=1.9cm, bottom=1.2cm, left=0.5cm, right=0.7cm]{geometry}
 \setlength\columnsep{20pt}
 \begin{document}
 \pagestyle{fancy}

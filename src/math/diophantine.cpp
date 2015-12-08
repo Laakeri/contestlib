@@ -1,6 +1,7 @@
-// solves ax+by=c in O(log a+b) time
-// returns {is, {x, y}}, is=0 if there is no solution
-// use __int128 for 64 bit numbers
+// TCR
+// Solves ax+by=c in O(log a+b) time
+// Returns {is, {x, y}}, is=0 if there is no solution
+// Use __int128 for 64 bit numbers
 #include <bits/stdc++.h>
 #define F first
 #define S second

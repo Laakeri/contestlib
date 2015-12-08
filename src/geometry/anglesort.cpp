@@ -1,5 +1,6 @@
-// cp is comparasion function for sorting points around origin
-// points are sorted in clockwise order
+// TCR
+// Comparasion function for sorting points around origin
+// Points are sorted in clockwise order
 /*
 122
 143

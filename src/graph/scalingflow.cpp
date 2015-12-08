@@ -1,3 +1,4 @@
+// TCR
 // Scaling flow algorithm for maxflow
 // O(E^2 log U), where U is maximum possible flow
 // In practice O(E^2)
@@ -9,7 +10,7 @@
 using namespace std;
 typedef long long ll;
 
-struct maxFlow {
+struct MaxFlow {
 	vector<vector<ll> > f;
 	vector<vector<int> > g;
 	vector<int> used;
@@ -58,7 +59,7 @@ struct maxFlow {
 		f[a][b]+=c;
 	}
 	
-	maxFlow(int n) : f(n+1), g(n+1), used(n+1) {
+	MaxFlow(int n) : f(n+1), g(n+1), used(n+1) {
 		for (int i=1;i<=n;i++) {
 			f[i]=vector<ll>(n+1);
 		}

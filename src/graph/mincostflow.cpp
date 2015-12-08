@@ -1,3 +1,4 @@
+// TCR
 // Finds minimum-cost k-flow
 // O(V E^2 log U), where U is maximum possible flow
 // Finding augmenting path is O(V E), usually faster
@@ -15,7 +16,7 @@ typedef long double ld;
 
 const ll inf=1e18;
 
-struct minCostFlow {
+struct MinCostFlow {
 	vector<vector<ll> > f;
 	vector<vector<int> > g;
 	vector<vector<ll> > c;
@@ -97,7 +98,7 @@ struct minCostFlow {
 		c[b][a]=-cost;
 	}
 	
-	minCostFlow(int n) : f(n+1), g(n+1), c(n+1), d(n+1), from(n+1), inq(n+1) {
+	MinCostFlow(int n) : f(n+1), g(n+1), c(n+1), d(n+1), from(n+1), inq(n+1) {
 		for (int i=1;i<=n;i++) {
 			f[i]=vector<ll>(n+1);
 			c[i]=vector<ll>(n+1);

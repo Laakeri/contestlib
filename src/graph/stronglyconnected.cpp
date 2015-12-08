@@ -1,14 +1,14 @@
-// Uses Kosaraju's algorithm O(V+E)
+// TCR
+// Kosaraju's algorithm for strongly connected components O(V+E)
 // Components will be returned in topological order
 // Uses 1-indexing
 #include <bits/stdc++.h>
 using namespace std;
 
-struct SCC{
+struct SCC {
 	vector<int> used;
 	vector<vector<int> > g2;
 	
-	// First dfs
 	void dfs1(vector<int>* g, int x, vector<int>& ns) {
 		if (used[x]==1) return;
 		used[x]=1;
@@ -19,7 +19,6 @@ struct SCC{
 		ns.push_back(x);
 	}
 	
-	// Second dfs
 	void dfs2(int x, vector<int>& co) {
 		if (used[x]==2) return;
 		used[x]=2;

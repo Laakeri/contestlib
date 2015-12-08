@@ -1,6 +1,7 @@
+// TCR
 // Basic geometry functions using complex numbers
 // Mostly copied from https://github.com/ttalvitie/libcontest/
-/* Useful functions of std
+/* Useful functions of complex number class
 	CT abs(co x): Length
 	CT norm(co x): Square of length
 	CT arg(co x): Angle
@@ -22,7 +23,7 @@ bool ccw(co a, co b, co c) {
 }
 
 // Return true iff points a, b, c are collinear.
-// NOTE: doesn't make much sense with non-integer CT.
+// Note: doesn't make much sense with non-integer CT.
 bool collinear(co a, co b, co c) {
 	return ((c-a)*conj(b-a)).Y==0;
 }
@@ -44,21 +45,21 @@ co interpolate(CT t, co a, co b) {
 	return a+t*(b-a);
 }
 
-//  Return interpolation parameter between a and b of projection of v to the
-//  line defined by a and b.
-//  NOTE: no rounding behavior specified for integers.
+// Return interpolation parameter between a and b of projection of v to the
+// line defined by a and b.
+// Note: no rounding behavior specified for integers.
 CT projectionParam(co v, co a, co b) {
 	return ((v-a)/(b-a)).X;
 }
 
-//  Compute the distance of point v from line a..b.
-//  NOTE: Only for non-integers!
+// Compute the distance of point v from line a..b.
+// Note: Only for non-integers!
 CT pointLineDistance(co p, co a, co b) {
 	return abs(((p-a)/(b-a)).Y)*abs(b-a);
 }
 
-//  Compute the distance of point v from segment a..b.
-//  NOTE: Only for non-integers!
+// Compute the distance of point v from segment a..b.
+// Note: Only for non-integers!
 CT pointSegmentDistance(co p, co a, co b) {
 	co z=(p-a)/(b-a);
 	if(z.X<0) return abs(p-a);
@@ -66,9 +67,9 @@ CT pointSegmentDistance(co p, co a, co b) {
 	return abs(z.Y)*abs(b-a);
 }
 
-//  Return interpolation parameter between a and b of the point that is also
-//  on line c..d.
-//  NOTE: Only for non-integers!
+// Return interpolation parameter between a and b of the point that is also
+// on line c..d.
+// Note: Only for non-integers!
 CT intersectionParam(co a, co b, co c, co d) {
 	co u=(c-a)/(b-a);
 	co v=(d-a)/(b-a);

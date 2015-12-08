@@ -1,3 +1,4 @@
+// TCR
 // Constructs LCP array from suffix array in O(n) time
 // You can change vector<int> s to string s
 #include <bits/stdc++.h>

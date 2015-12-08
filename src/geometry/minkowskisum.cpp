@@ -1,3 +1,4 @@
+// TCR
 // Computes the Minkowski sum of 2 convex polygons in O(n+m log n+m)
 // Returns convex polygon in counterclockwise order
 // The points on the edges of the hull are listed

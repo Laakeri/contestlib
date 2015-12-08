@@ -1,3 +1,4 @@
+// TCR
 // Treap implementation with pointers
 // Expected running time of split and merge is O(log n)
 #include <bits/stdc++.h>
@@ -29,7 +30,7 @@ void upd(pnode t) {
 // Put lazy updates here
 void push(pnode t) {
 	if (t) {
-		// Something
+		// Do lazy update
 	}
 }
 
