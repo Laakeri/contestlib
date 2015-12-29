@@ -5,13 +5,14 @@ Intersection point of 2 segments
 2 pointers for iterating half plane (impossible to do properly)
 
 Strings:
-Aho-corasick
 
 Graphs:
-Cutvertices and 2-vertex-connected components
+Bridges and 2-edge connected components
+HLD
 
 Number theory:
 Discrete root http://e-maxx-eng.github.io/algebra/discrete-root.html
+Generalization of chinese remainder theorem
 
 Numeric:
 Numerical integration

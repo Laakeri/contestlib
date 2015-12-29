@@ -1,3 +1,4 @@
+// TCR
 // Aho-Corasick algorithm
 // Building of automaton is O(L) where L is total length of dictionary
 // Matching is O(n + number of matches), O(n sqrt(L)) in the worst case
