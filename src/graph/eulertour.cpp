@@ -1,4 +1,5 @@
 // TCR
+// NOT TESTED PROPERLY
 // Finds Euler tour of graph in O(E) time
 
 // Parameters are the adjacency list, number of nodes, 
@@ -47,9 +48,7 @@ struct EulerTour {
 		for (int i=1;i<=n;i++) {
 			for (int nx:og[i]) {
 				if (d==1||nx<=i) {
-					if (d==0&&nx<i) {
-						g[nx].push_back({i, i2});
-					}
+					if (d==0&&nx<i) g[nx].push_back({i, i2});
 					g[i].push_back({nx, i2++});
 				}
 			}

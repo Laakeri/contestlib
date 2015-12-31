@@ -11,6 +11,7 @@ using namespace std;
 typedef long long ll;
 
 struct MaxFlow {
+	// Use vector<map<int, ll> > for sparse graphs
 	vector<vector<ll> > f;
 	vector<vector<int> > g;
 	vector<int> used;
@@ -34,13 +35,6 @@ struct MaxFlow {
 	
 	// maxv is maximum expected maxflow
 	ll getMaxFlow(int source, int sink, ll maxv) {
-		int n=g.size()-1;
-		for (int i=1;i<=n;i++) {
-			g[i].clear();
-			for (int ii=1;ii<=n;ii++) {
-				if (f[i][ii]!=0||f[ii][i]!=0) g[i].push_back(ii);
-			}
-		}
 		cc=1;
 		ll r=0;
 		ll k=1;
@@ -56,6 +50,10 @@ struct MaxFlow {
 	}
 	
 	void addEdge(int a, int b, ll c) {
+		if (f[a][b]==0&&f[b][a]==0) {
+			g[a].push_back(b);
+			g[b].push_back(a);
+		}
 		f[a][b]+=c;
 	}
 	

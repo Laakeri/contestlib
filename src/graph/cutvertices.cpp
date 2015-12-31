@@ -8,12 +8,9 @@
 using namespace std;
 
 struct Biconnected {
-	vector<int> cut;
-	vector<int> h;
-	vector<int> d;
+	vector<int> cut,h,d,used;
 	vector<map<int, vector<int> > > bg;
 	vector<pair<int, int> > es;
-	vector<int> used;
 	int cc;
 	void dfs1(vector<int>* g, int x, int p) {
 		h[x]=d[x];
@@ -50,7 +47,7 @@ struct Biconnected {
 		}
 	}
 	
-	Biconnected(vector<int>* g, int n) : cut(n+1), h(n+1), d(n+1), bg(n+1), used(n+1) {
+	Biconnected(vector<int>* g, int n) : cut(n+1), h(n+1), d(n+1), used(n+1), bg(n+1) {
 		cc=1;
 		for (int i=1;i<=n;i++) {
 			if (d[i]==0) {
@@ -60,8 +57,3 @@ struct Biconnected {
 		}
 	}
 };
-
-int main(){
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-}

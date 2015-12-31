@@ -17,12 +17,11 @@ typedef long double ld;
 const ll inf=1e18;
 
 struct MinCostFlow {
-	vector<vector<ll> > f;
+	// Use vector<map<int, ll> > for sparse graphs
+	vector<vector<ll> > f, c;
 	vector<vector<int> > g;
-	vector<vector<ll> > c;
 	vector<ll> d;
-	vector<int> from;
-	vector<int> inq;
+	vector<int> from, inq;
 	queue<int> spfa;
 	
 	void relax(int x, ll di, int p) {
@@ -69,13 +68,6 @@ struct MinCostFlow {
 	// kf is inteded flow, set infinite for maxflow
 	// returns {flow, cost}
 	pair<ll, ll> getKFlow(int source, int sink, ll maxv, ll kf) {
-		int n=g.size()-1;
-		for (int i=1;i<=n;i++) {
-			g[i].clear();
-			for (int ii=1;ii<=n;ii++) {
-				if (f[i][ii]!=0||f[ii][i]!=0) g[i].push_back(ii);
-			}
-		}
 		ll r=0;
 		ll k=1;
 		ll co=0;
@@ -93,12 +85,16 @@ struct MinCostFlow {
 	}
 	
 	void addEdge(int a, int b, ll capa, ll cost) {
+		if (f[a][b]==0&&f[b][a]==0) {
+			g[a].push_back(b);
+			g[b].push_back(a);
+		}
 		f[a][b]=capa;
 		c[a][b]=cost;
 		c[b][a]=-cost;
 	}
 	
-	MinCostFlow(int n) : f(n+1), g(n+1), c(n+1), d(n+1), from(n+1), inq(n+1) {
+	MinCostFlow(int n) : f(n+1), c(n+1), g(n+1), d(n+1), from(n+1), inq(n+1) {
 		for (int i=1;i<=n;i++) {
 			f[i]=vector<ll>(n+1);
 			c[i]=vector<ll>(n+1);
