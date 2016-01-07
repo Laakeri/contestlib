@@ -8,11 +8,11 @@
 using namespace std;
 
 struct Biconnected {
-	vector<int> cut,h,d,used;
+	vector<int> cut, h, d, used;
 	vector<map<int, vector<int> > > bg;
 	vector<pair<int, int> > es;
 	int cc;
-	void dfs1(vector<int>* g, int x, int p) {
+	void dfs(vector<int>* g, int x, int p) {
 		h[x]=d[x];
 		int f=0;
 		for (int nx:g[x]) {
@@ -22,7 +22,7 @@ struct Biconnected {
 					f++;
 					d[nx]=d[x]+1;
 					int ts=es.size();
-					dfs1(g, nx, x);
+					dfs(g, nx, x);
 					h[x]=min(h[x], h[nx]);
 					if (h[nx]>=d[x]) {
 						cut[x]=1;
@@ -52,7 +52,7 @@ struct Biconnected {
 		for (int i=1;i<=n;i++) {
 			if (d[i]==0) {
 				d[i]=1;
-				dfs1(g, i, 0);
+				dfs(g, i, 0);
 			}
 		}
 	}

@@ -2,6 +2,7 @@ Todo:
 
 Geometry:
 Intersection point of 2 segments
+Other basic formulas
 2 pointers for iterating half plane (impossible to do properly)
 
 Strings:
@@ -17,8 +18,12 @@ Generalization of chinese remainder theorem
 Numeric:
 Numerical integration
 Berlekamp massey
+Simplex
 
 Test:
 Eulertour
 Gaussjordan
 Suffixarray
+
+Other:
+Math formulas?
