@@ -39,8 +39,8 @@ struct SuffixAutomaton {
 		}
 		last=t;
 	}
-	suffixAutomaton() : suffixAutomaton("") {}
-	suffixAutomaton(string s) {
+	SuffixAutomaton() : SuffixAutomaton("") {}
+	SuffixAutomaton(string s) {
 		last=0;
 		g.push_back(map<char, int>());
 		link.push_back(-1);
@@ -48,5 +48,14 @@ struct SuffixAutomaton {
 		for (int i=0;i<(int)s.size();i++) {
 			addC(s[i]);
 		}
+	}
+	vector<int> terminals() {
+		vector<int> t;
+		int p=last;
+		while (p>0) {
+			t.push_back(p);
+			p=link[p];
+		}
+		return t;
 	}
 };
