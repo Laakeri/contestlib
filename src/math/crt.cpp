@@ -1,36 +1,38 @@
 // TCR
-// Solves x from system of equations x == a_i (mod p_i)
-// Overflows only if p_1*...*p_n overflows
-#include <bits/stdc++.h>
+// (Generalised) Chinese remainder theorem (for arbitrary moduli):
+// Solves x from system of equations x == a_i (mod m_i), giving answer modulo m = lcm(m_1,...,m_n)
+// Runs in O(log(m)+n) time
+// Overflows only if m overflows
+// Returns {1, {x, m}} if solution exists, and {-1, {0,0}} otherwise
+#include <iostream>
+#include <vector>
+#include <cmath>
 using namespace std;
 typedef long long ll;
+typedef __int128 lll;
 
-ll pot(ll x, ll p, ll mod) {
-	if (p==0) return 1;
-	if (p%2==0) {
-		x=pot(x, p/2, mod);
-		return (x*x)%mod;
-	}
-	return (x*pot(x, p-1, mod))%mod;
+ll ee(ll a, ll b, ll ca, ll cb, ll xa, ll xb, ll&x, ll&y) {
+    if (cb==0) {
+        x=xa;
+        if (b==0) y=0;
+        else y=(ca-a*xa)/b;
+        return ca;
+    }
+    else return ee(a, b, cb, ca%cb, xb, xa-(ca/cb)*xb, x, y);
 }
 
-ll inv(ll x, ll mod) {
-	return pot(x%mod, mod-2, mod);
-}
-
-ll solve(vector<ll> a, vector<ll> p) {
-	vector<ll> x(a.size());
-	ll r=0;
-	ll k=1;
-	for (int i=0;i<(int)a.size();i++) {
-		x[i]=a[i];
-		for (int j=0;j<i;j++) {
-			x[i]=inv(p[j], p[i])*(x[i]-x[j]);
-			x[i]=x[i]%p[i];
-			if (x[i]<0) x[i]+=p[i];
-		}
-		r+=k*x[i];
-		k*=p[i];
-	}
-	return r;
+pair<int, pair<ll, ll>> crt(vector<ll> as, vector<ll> ms) {
+    ll aa = as[0]%ms[0], mm = ms[0], d, a, b, x;
+    for (int i = 1; i < (int) as.size(); i++) {
+        d = __gcd(mm, ms[i]);
+        if ((aa-as[i])%d != 0) return {-1,{0,0}};
+        if (d == ms[i]) continue;
+        a = mm/d;
+        b = ms[i]/d;
+        ee(a, b, a, b, 1, 0, x, b);
+        mm = a*(lll)ms[i];
+        aa = ((lll)aa + ((lll)as[i]-(lll)aa)*(lll)(((lll)a*(lll)(x%mm))%mm))%mm;
+    }
+    if (aa < 0) aa += mm;
+    return {1, {aa, mm}};
 }
