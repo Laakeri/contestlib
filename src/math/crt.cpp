@@ -4,7 +4,7 @@
 // Runs in O(log(m)+n) time
 // Overflows only if m overflows
 // Returns {1, {x, m}} if solution exists, and {-1, {0,0}} otherwise
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 typedef __int128 lll;

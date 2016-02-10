@@ -1,19 +1,18 @@
 Todo:
 
 Geometry:
-Intersection point of 2 segments
+Intersection point of 2 lines
 Other basic formulas
-2 pointers for iterating half plane (impossible to do properly)
+Half planes
 
 Strings:
 
 Graphs:
-Bridges and 2-edge connected components
 HLD
+Link/cut tree
 
 Number theory:
 Discrete root http://e-maxx-eng.github.io/algebra/discrete-root.html
-Generalization of chinese remainder theorem
 
 Numeric:
 Numerical integration
