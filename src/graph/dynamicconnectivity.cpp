@@ -1,132 +1,102 @@
 // TCR
-// O(n log n) offline solution for dynamic connectivity problem
-// ? count the number of connected components
-// + A B add edge between A and B
-// - A B remove edge between A and B
+// O(n log n) offline solution for dynamic connectivity problem.
+// Query types:
+// {1, {a, b}} add edge. If edge already exists nothing happns.
+// {2, {a, b}} remove edge. If no edge exists nothing happens.
+// {3, {0, 0}} count number of connected components.
+// Uses 1-indexing
 #include <bits/stdc++.h>
 #define F first
 #define S second
 using namespace std;
 
-struct e{
-	int a,b,l,r;
+struct DynamicConnectivity {
+	struct Edge {
+		int a, b, l, r;
+	};
+	vector<int> ret, tq, id, is;
+	vector<vector<int> > g;
+	int dfs(int x, int c) {
+		id[x]=c;
+		int r=is[x];
+		for (int nx:g[x])
+			if (!id[nx]) r|=dfs(nx, c);
+		return r;
+	}
+	void go(int l, int r, int n, int out, vector<Edge>& es) {
+		vector<Edge> nes;
+		for (int i=1;i<=n;i++) {
+			g[i].clear();
+			id[i]=0;
+			is[i]=0;
+		}
+		for (auto e:es) {
+			if (e.l>r||e.r<l||e.a==e.b) continue;
+			if (e.l<=l&&r<=e.r) {
+				g[e.a].push_back(e.b);
+				g[e.b].push_back(e.a);
+			}
+			else {
+				nes.push_back(e);
+				is[e.a]=1;
+				is[e.b]=1;
+			}
+		}
+		int i2=1;
+		for (int i=1;i<=n;i++) {
+			if ((int)g[i].size()>0||is[i]) {
+				if (!id[i]) {
+					int a=dfs(i, i2);
+					if (!a) out++;
+					else i2++;
+				}
+			}
+			else {
+				out++;
+			}
+		}
+		for (auto&e:nes) {
+			e.a=id[e.a];
+			e.b=id[e.b];
+		}
+		if (l==r) {
+			if (tq[l]) ret[tq[l]-1]=out+i2-1;
+		}
+		else {
+			int m=(l+r)/2;
+			go(l, m, i2-1, out, nes);
+			go(m+1, r, i2-1, out, nes);
+		}
+	}
+	vector<int> solve(int n, vector<pair<int, pair<int, int> > > queries) {
+		map<pair<int, int>, int> ae;
+		tq.resize(queries.size());
+		id.resize(n+1);
+		is.resize(n+1);
+		g.resize(n+1);
+		int qs=0;
+		vector<Edge> es;
+		for (int i=0;i<(int)queries.size();i++) {
+			auto q=queries[i];
+			if (q.S.F>q.S.S) swap(q.S.F, q.S.S);
+			if (q.F==1) {
+				if (ae[q.S]==0) ae[q.S]=i+1;
+			}
+			else if(q.F==2) {
+				if (ae[q.S]) {
+					es.push_back({q.S.F, q.S.S, ae[q.S]-1, i});
+					ae[q.S]=0;
+				}
+			}
+			else if (q.F==3) {
+				tq[i]=1+qs++;
+			}
+		}
+		for (auto e:ae) {
+			if (e.S) es.push_back({e.F.F, e.F.S, e.S-1, (int)queries.size()});
+		}
+		ret.resize(qs);
+		if ((int)queries.size()>0) go(0, (int)queries.size()-1, n, 0, es);
+		return ret;
+	}
 };
-int qqs[603030];
-int qv[603030];
-int is[603030];
-int uf[603030];
-int id[603030];
-
-int getu(int a){
-	if (uf[a]==a) return a;
-	return uf[a]=getu(uf[a]);
-}
-
-void un(int a, int b){
-	a=getu(a);
-	b=getu(b);
-	if (a!=b) uf[a]=b;
-}
-
-void go(int l, int r, int uc, int n, vector<e> es){
-	for (int i=1;i<=n;i++){
-		is[i]=0;
-	}
-	int i2=1;
-	vector<pair<int, int> > te;
-	vector<e> ce;
-	for (e ee:es){
-		if (ee.a!=ee.b&&(!(ee.l>r||ee.r<l))){
-			if (is[ee.a]==0){
-				is[ee.a]=i2;
-				ee.a=i2++;
-			}
-			else{
-				ee.a=is[ee.a];
-			}
-			if (is[ee.b]==0){
-				is[ee.b]=i2;
-				ee.b=i2++;
-			}
-			else{
-				ee.b=is[ee.b];
-			}
-			if (ee.l<=l&&r<=ee.r){
-				te.push_back({ee.a, ee.b});
-			}
-			else{
-				ce.push_back(ee);
-			}
-		}
-	}
-	for (int i=1;i<=n;i++){
-		if (is[i]==0){
-			uc++;
-		}
-	}
-	for (int i=1;i<i2;i++){
-		uf[i]=i;
-		id[i]=0;
-	}
-	for (auto ee:te){
-		un(ee.F, ee.S);
-	}
-	int i3=1;
-	for (int i=1;i<i2;i++){
-		if (id[getu(uf[i])]==0){
-			id[getu(uf[i])]=i3++;
-		}
-	}
-	for (e&ee:ce){
-		ee.a=id[getu(ee.a)];
-		ee.b=id[getu(ee.b)];
-	}
-	if (l==r){
-		qv[l]=uc+i3-1;
-	}
-	else{
-		int m=(l+r)/2;
-		go(l, m, uc, i3-1, ce);
-		go(m+1, r, uc, i3-1, ce);
-	}
-}
-
-int main(){
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-	int n,k;
-	cin>>n>>k;
-	int qs=0;
-	vector<e> es;
-	map<pair<int, int>, int> ae;
-	for (int i=1;i<=k;i++){
-		char t;
-		cin>>t;
-		if (t=='?'){
-			qqs[qs++]=i;
-		}
-		else{
-			int a,b;
-			cin>>a>>b;
-			if (t=='+'){
-				pair<int, int> lol={min(a, b), max(a, b)};
-				ae[lol]=i;
-			}
-			else{
-				pair<int, int> lol={min(a, b), max(a, b)};
-				int s=ae[lol];
-				ae[lol]=0;
-				es.push_back({a, b, s, i});
-			}
-		}
-	}
-	for (auto t:ae){
-		if (t.S>0){
-			es.push_back({t.F.F, t.F.S, t.S, k});
-		}
-	}
-	go(0, (1<<19)-1, 0, n, es);
-	for (int i=0;i<qs;i++){
-		cout<<qv[qqs[i]]<<'\n';
-	}
-}
