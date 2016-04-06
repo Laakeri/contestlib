@@ -15,8 +15,8 @@ typedef long long ll;
 typedef ll CT;
 typedef complex<CT> co;
 
-bool ccw(co a, co b, co c) {
-	return ((c-a)*conj(b-a)).Y>0;
+ll ccw(co a, co b, co c) {
+	return ((c-a)*conj(b-a)).Y;
 }
 
 int ar(co x) {
@@ -29,6 +29,10 @@ int ar(co x) {
 bool cp(pair<co, pair<int, int> > p1, pair<co, pair<int, int> > p2) {
 	if (ar(p1.F)!=ar(p2.F)) {
 		return ar(p1.F)<ar(p2.F);
+	}
+	assert((ccw({0, 0}, p1.F, p2.F)==0)==(ccw({0, 0}, p2.F, p1.F)==0));
+	if (ccw({0, 0}, p1.F, p2.F)==0){
+		return p1.S>p2.S;
 	}
 	return ccw({0, 0}, p2.F, p1.F)>0;
 }
@@ -53,11 +57,25 @@ vector<co> minkowski(vector<co>&a, vector<co>&b) {
 		return ret;
 	}
 	vector<pair<co, pair<int, int> > > pp;
+	int f1=0;
+	int f2=0;
 	for (int i=0;i<n;i++) {
-		pp.push_back({a[(i+1)%n]-a[i], {1, i}});
+		if (ccw(a[(i-1+n)%n], a[i], a[(i+1)%n])!=0) {
+			f1=i;
+			break;
+		}
+	}
+	for (int i=0;i<n;i++) {
+		pp.push_back({a[(i+1+f1)%n]-a[(i+f1)%n], {1, i}});
 	}
 	for (int i=0;i<m;i++) {
-		pp.push_back({b[(i+1)%m]-b[i], {2, i}});
+		if (ccw(b[(i-1+m)%m], b[i], b[(i+1)%m])!=0) {
+			f2=i;
+			break;
+		}
+	}
+	for (int i=0;i<m;i++) {
+		pp.push_back({b[(i+1+f2)%m]-b[(i+f2)%m], {2, i}});
 	}
 	sort(pp.rbegin(), pp.rend(), cp);
 	co s={0, 0};
@@ -65,8 +83,8 @@ vector<co> minkowski(vector<co>&a, vector<co>&b) {
 	for (int i=0;i<(int)pp.size();i++) {
 		s+=pp[i].F;
 		if (pp[i].S.F!=pp[i+1].S.F) {
-			if (pp[i].S.F==1) ad=a[(pp[i].S.S+1)%n]+b[(pp[i+1].S.S)%m];
-			else ad=b[(pp[i].S.S+1)%m]+a[(pp[i+1].S.S)%n];
+			if (pp[i].S.F==1) ad=a[(pp[i].S.S+1+f1)%n]+b[(pp[i+1].S.S+f2)%m];
+			else ad=b[(pp[i].S.S+1+f2)%m]+a[(pp[i+1].S.S+f1)%n];
 			ad-=s;
 			break;
 		}
