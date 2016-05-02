@@ -3,13 +3,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-// luku muotoa (2^20)*k+1
+// Number of form (2^20)*k+1
 const ll mod=1045430273;
-// luku jonka order 2^20
+// Number whose order mod mod is 2^20
 const ll root=363;
-// sen kaanteisluku
-const ll root_1=296637240;
 const ll root_pw=1<<20;
+
+// 128 bit
+//const lll mod=2097152000007340033;
+//const lll root=2014907510281342032;
+//const lll root_pw=1<<20;
 
 ll pot(ll x, ll p) {
 	if (p==0) return 1;
@@ -25,6 +28,7 @@ ll inv(ll x) {
 }
 
 vector<ll> fft (vector<ll> a, int d) {
+	ll root_1=inv(root);
 	int n=(int)a.size();
 	for (int i=1,j=0;i<n;i++) {
 		int bit=n>>1;
