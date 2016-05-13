@@ -1,17 +1,10 @@
-#include <iostream>
-#include <iomanip>
-#include <cmath>
-#include <vector>
-#include <set>
-#include <map>
-#include <algorithm>
+// TCR
+// Berlekamp massey
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-typedef __int128 lll;
 
-using namespace std;
-
-lll powmod(lll a, lll p, lll modd) {
+ll powmod(ll a, ll p, ll modd) {
 	if (p==0) return 1;
 	if (p%2==0) {
 		a=powmod(a, p/2, modd);
@@ -42,20 +35,20 @@ vector<ll> solve(vector<ll> S, ll mod) {
 		} else if (2*L <= i) {
 			vector<ll> T = C;
 			ll a = (invp(b, mod)*d)%mod;
+			for (int j=0;j<i+1-2*L;j++){
+				C.push_back(0);
+			}
+			L=i+1-L;
 			for (ll j = m; j <= L; j++) {
 				C[j] -= a*B[j - m];
 				C[j] %= mod;
 			}
-			for (ll j = L + 1; j <= i + 1 - L; j++) {
-				C.push_back((-a*B[j - m])%mod);
-			}
-			L = i + 1 - L;
 			B = T;
 			b = d;
 			m = 1;
 		} else {
 			ll a = (invp(b, mod)*d)%mod;
-			for (ll j = m; j <= L; j++) {
+			for (ll j = m; j < m+(int)B.size(); j++) {
 				C[j] -= a*B[j - m];
 				C[j] %= mod;
 			}
@@ -69,12 +62,61 @@ vector<ll> solve(vector<ll> S, ll mod) {
 	return C;
 }
 
-int main() {
-	vector<ll> S = {1,1,2,3,5, 8, 13, 21, 34, 55};
-	vector<ll> C = solve(S, 1000000007);
-	for (ll x : C) {
-		cout << x << " ";
+struct LinearRecurrence {
+	vector<vector<ll> > mat;
+	vector<ll> seq;
+	ll mod;
+	vector<vector<ll> > mul(vector<vector<ll> > a, vector<vector<ll> > b) {
+		int n=a.size();
+		vector<vector<ll> > ret(n);
+		for (int i=0;i<n;i++){
+			ret[i].resize(n);
+			for (int j=0;j<n;j++){
+				ret[i][j]=0;
+				for (int k=0;k<n;k++){
+					ret[i][j]+=a[i][k]*b[k][j];
+					ret[i][j]%=mod;
+				}
+			}
+		}
+		return ret;
 	}
-	cout << "\n";
-	return 0;
-}
+	vector<vector<ll> > pot(vector<vector<ll> > m, ll p) {
+		if (p==1) return m;
+		if (p%2==0) {
+			m=pot(m, p/2);
+			return mul(m, m);
+		}
+		else{
+			return mul(m, pot(m, p-1));
+		}
+	}
+	ll get(ll i){
+		if (i<(ll)mat.size()){
+			return seq[i];
+		}
+		vector<vector<ll> > a=pot(mat, i-(ll)mat.size()+1);
+		ll v=0;
+		for (int i=0;i<(int)mat.size();i++){
+			v+=a[0][i]*seq[(int)mat.size()-i-1];
+			v%=mod;
+		}
+		return v;
+	}
+	LinearRecurrence(vector<ll> S, ll mod_) {
+		seq=S;
+		mod=mod_;
+		vector<ll> C=solve(S, mod);
+		int n=C.size()-1;
+		mat.resize(n);
+		for (int i=0;i<n;i++) {
+			mat[i].resize(n);
+		}
+		for (int i=0;i<n;i++){
+			mat[0][i]=(mod-C[i+1])%mod;
+		}
+		for (int i=1;i<n;i++){
+			mat[i][i-1]=1;
+		}
+	}
+};
