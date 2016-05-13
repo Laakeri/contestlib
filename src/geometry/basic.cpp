@@ -16,6 +16,7 @@ typedef long long ll;
 // Coordinate type
 typedef ld CT;
 typedef complex<CT> co;
+CT eps=1e-12;
 
 // Return true iff points a, b, c are CCW oriented.
 bool ccw(co a, co b, co c) {
@@ -25,7 +26,7 @@ bool ccw(co a, co b, co c) {
 // Return true iff points a, b, c are collinear.
 // Note: doesn't make much sense with non-integer CT.
 bool collinear(co a, co b, co c) {
-	return ((c-a)*conj(b-a)).Y==0;
+	return abs(((c-a)*conj(b-a)).Y)<eps;
 }
 
 // Rotate x with agle ang
@@ -70,8 +71,89 @@ CT pointSegmentDistance(co p, co a, co b) {
 // Return interpolation parameter between a and b of the point that is also
 // on line c..d.
 // Note: Only for non-integers!
+// x=a*(1-t)+b*t
 CT intersectionParam(co a, co b, co c, co d) {
 	co u=(c-a)/(b-a);
 	co v=(d-a)/(b-a);
 	return (u.X*v.Y-u.Y*v.X)/(v.Y-u.Y);
+}
+
+pair<int, pair<co, co> > circleIntersection(co p1, CT r1, co p2, CT r2){
+	if (norm(p1-p2)>(r1+r2)*(r1+r2)||norm(p1-p2)<(r1-r2)*(r1-r2)) return {0, {{0, 0}, {0, 0}}};
+	if (abs(p1-p2)<eps&&abs(r1-r2)<eps) return {3, {{p1.X, p1.Y+r1}, {p1.X+r1, p1.Y}}};
+	CT a=abs(p1-p2);
+	CT x=(r1*r1-r2*r2+a*a)/(2*a);
+	co v1={x, sqrt(r1*r1-x*x)};
+	co v2={x, -sqrt(r1*r1-x*x)};
+	v1=v1*(p2-p1)/a+p1;
+	v2=v2*(p2-p1)/a+p1;
+	if (abs(v1-v2)<eps) return {1, {v1, v1}};
+	return {2, {v1, v2}};
+}
+
+// Intersection of lines a..b and c..d
+// Only for doubles
+pair<int, co> lineIntersection(co a, co b, co c, co d) {
+	if (collinear(a, b, c)&&collinear(a, b, d)){
+		return {2, a};
+	}
+	else if(abs(((b-a)/(c-d)).Y)<eps){
+		return {0, {0, 0}};
+	}
+	else{
+		ld t=intersectionParam(a, b, c, d);
+		return {1, a*(1-t)+b*t};
+	}
+}
+
+// Is b between a and c
+// Only for doubles
+int between(co a, co b, co c) {
+	return abs(abs(a-b)+abs(b-c)-abs(a-c))<eps;
+}
+
+// Intersection of segments a..b and c..d
+// Only for doubles
+pair<int, pair<co, co> > segmentIntersection(co a, co b, co c, co d) {
+	if (abs(a-b)<eps){
+		if (between(c, a, d)){
+			return {1, {a, a}};
+		}
+		else{
+			return {0, {0, 0}};
+		}
+	}
+	else if (abs(c-d)<eps){
+		if (between(a, c, b)){
+			return {1, {c, c}};
+		}
+		else{
+			return {0, {0, 0}};
+		}
+	}
+	else if (collinear(a, b, c)&&collinear(a, b, d)){
+		if (((b-a)/(d-c)).X < 0) swap(c, d);
+		co beg;
+		if (between(a,c,b)) beg=c;
+		else if (between(c,a,d)) beg=a;
+		else return {0, {{0, 0}, {0, 0}}};
+		co en=d;
+		if (between(c, b, d)) en=b;
+		if (abs(beg-en)<eps) return {1, {beg, beg}};
+		return {2, {beg, en}};
+	}
+	else if(abs(((b-a)/(c-d)).Y)<eps){
+		return {0, {0, 0}};
+	}
+	else {
+		CT u=intersectionParam(a, b, c, d);
+		CT v=intersectionParam(c, d, a, b);
+		if (u<-eps||u>1+eps||v<-eps||v>1+eps) {
+			return {0, {{0, 0}, {0, 0}}};
+		}
+		else{
+			co p=a*(1-u)+b*u;
+			return {1, {p, p}};
+		}
+	}
 }

@@ -1,0 +1,9 @@
+// TCR
+xmodmap -pke > lol
+49 vasen ylä
+133 windows
+less greater less greater bar bar bar
+xmodmap lol
+xmodmap -pm
+xmodmap -e "remove mod4 = Super_L"
+(clear mod4)
