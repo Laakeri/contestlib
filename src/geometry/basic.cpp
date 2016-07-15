@@ -157,3 +157,13 @@ pair<int, pair<co, co> > segmentIntersection(co a, co b, co c, co d) {
 		}
 	}
 }
+
+//Returns a point from the ray bisecting the non-reflex angle abc.
+//Only for doubles. Returns 0 if the points are collinear.
+pair<co,int> angleBisector(co a, co b, co c) {
+	if (collinear(a,b,c)) return {{0,0},0};
+	co aa=(a-b)/abs(a-b);
+	co cc=(c-b)/abs(c-b);
+	co bb=sqrt(aa/cc);
+	return {b+bb*cc,1};
+}
