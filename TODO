@@ -1,12 +1,12 @@
 Todo:
 
 Geometry:
+tangents of convex hulls
 Half planes
 
 Strings:
 
 Graphs:
-HLD
 
 Number theory:
 Discrete root http://e-maxx-eng.github.io/algebra/discrete-root.html
@@ -19,6 +19,8 @@ Test:
 Eulertour
 Gaussjordan
 Suffixarray
+Dynamichull
+Linkcut
 
 Other:
 Math formulas?
