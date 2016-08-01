@@ -1,3 +1,4 @@
+// TCR
 // Data structure that maintains a set of lines in O(log n) query time
 // Operations: insert line, find the highest line at x coordinate x
 // Works with integers and doubles
@@ -22,7 +23,7 @@ struct Line {
 		return b-s->b<(s->m-m)*x;
 	}
 };
-struct HullDynamic : public multiset<Line> {
+struct DynamicHull : public multiset<Line> {
 	bool bad(iterator y) {
 		auto z=next(y);
 		if (y==begin()) {
