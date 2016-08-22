@@ -2,6 +2,7 @@
 // Pollard Rho Integer factorization
 // Support of 128 bit integers is required to factor over 32 bit integers
 // requires isPrime function
+// expected time complexity is O(n^(1/4))
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
