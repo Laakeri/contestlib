@@ -1,103 +1,100 @@
 // TCR
-// Finds minimum-cost k-flow
-// O(V E^2 log U), where U is maximum possible flow
-// Finding augmenting path is O(V E), usually faster
-// Uses scaling flow and finds augmenting path with SPFA
-// Only 1-directional edges allowed
-// Doesn't work if graph contains negative cost cycles
+// Find minimum-cost k-flow
+// O(VE) normalizing and O(E log V) for each augmenting path
 // Uses 1-indexing
-
 #include <bits/stdc++.h>
 #define F first
 #define S second
 using namespace std;
 typedef long long ll;
-typedef long double ld;
-
 const ll inf=1e18;
-
-struct MinCostFlow {
-	// Use vector<map<int, ll> > for sparse graphs
-	vector<vector<ll> > f, c;
-	vector<vector<int> > g;
-	vector<ll> d;
-	vector<int> from, inq;
-	queue<int> spfa;
-	
-	void relax(int x, ll di, int p) {
-		if (di>=d[x]) return;
-		d[x]=di;
-		from[x]=p;
-		if (!inq[x]) {
-			spfa.push(x);
-			inq[x]=1;
+template<int V, int E> struct MinCostFlow {
+	struct Edge {
+		int a, b;
+		ll ca, co;
+	} es[E*2];
+	int eu=0,nmz=0;
+	vector<int> g[V+1];
+	ll p[V+1],d[V+1];
+	int fr[V+1],u[V+1];
+	void addEdge(int a, int b, ll ca, ll co) {
+		nmz=0;
+		es[eu++]={a, b, ca, co};
+		es[eu++]={b, a, 0, -co};
+		g[a].push_back(eu-2);
+		g[b].push_back(eu-1);
+	}
+	void normalize(int source) {
+		if (nmz) return;nmz=1;
+		for (int i=1;i<=V;i++) {
+			p[i]=inf;
+			u[i]=0;
+		}
+		p[source]=0;
+		queue<int> q;
+		q.push(source);
+		while (!q.empty()){
+			int x=q.front();
+			u[x]=0;q.pop();
+			for (int e:g[x]) {
+				if (es[e].ca>0&&p[x]+es[e].co<p[es[e].b]) {
+					p[es[e].b]=p[x]+es[e].co;
+					if (!u[es[e].b]) {
+						u[es[e].b]=1;
+						q.push(es[e].b);
+					}
+				}
+			}
 		}
 	}
-	
-	ll augment(ll x, ll s, ll fl) {
-		if (x==s) return fl;
-		ll r=augment(from[x], s, min(fl, f[from[x]][x]));
-		f[from[x]][x]-=r;
-		f[x][from[x]]+=r;
+	ll augment(int x, ll fl) {
+		if (fr[x]==-1) return fl;
+		ll r=augment(es[fr[x]].a, min(fl, es[fr[x]].ca));
+		es[fr[x]].ca-=r;
+		es[fr[x]^1].ca+=r;
 		return r;
 	}
-	
-	pair<ll, ll> flow(int s, int t, ll miv, ll kf) {
-		int n=g.size()-1;
-		for (int i=1;i<=n;i++) {
-			d[i]=inf;
-			inq[i]=0;
+	pair<ll, ll> flow(int source, int sink, ll mf) {
+		priority_queue<pair<ll, int> > dij;
+		for (int i=1;i<=V;i++) {
+			u[i]=0;fr[i]=-1;d[i]=inf;
 		}
-		relax(s, 0, 0);
-		while (!spfa.empty()) {
-			int x=spfa.front();
-			spfa.pop();
-			inq[x]=0;
-			for (int nx:g[x]) {
-				if (f[x][nx]>=miv) relax(nx, d[x]+c[x][nx], x);
+		d[source]=0;
+		dij.push({0, source});
+		while (!dij.empty()) {
+			auto x=dij.top();dij.pop();
+			if (u[x.S]) continue;
+			u[x.S]=1;
+			for (int e:g[x.S]) {
+				ll nd=d[x.S]+es[e].co+p[x.S]-p[es[e].b];
+				if (es[e].ca>0&&nd<d[es[e].b]) {
+					d[es[e].b]=nd;
+					fr[es[e].b]=e;
+					dij.push({-nd, es[e].b});
+				}
 			}
 		}
-		if (d[t]<inf) {
-			ll fl=augment(t, s, kf);
-			return {fl, fl*d[t]};
+		ll co=d[sink]+p[sink];
+		for (int i=1;i<=V;i++) {
+			if (fr[i]!=-1) p[i]+=d[i];
 		}
-		return {0, 0};
+		if (u[sink]) {
+			ll fl=augment(sink, mf);
+			return {fl, fl*co};
+		}
+		else return {0, 0};
 	}
-	
-	// maxv is maximum possible flow on a single augmenting path
-	// kf is inteded flow, set infinite for maxflow
-	// returns {flow, cost}
-	pair<ll, ll> getKFlow(int source, int sink, ll maxv, ll kf) {
-		ll r=0;
-		ll k=1;
+	pair<ll, ll> getKFlow(int source, int sink, ll k) {
+		ll fl=0;
 		ll co=0;
-		while (k*2<=maxv) k*=2;
-		for (;k>0&&kf>0;k/=2) {
-			while (1) {
-				pair<ll, ll> t=flow(source, sink, k, kf);
-				r+=t.F;
-				kf-=t.F;
-				co+=t.S;
-				if (kf==0||t.F==0) break;
-			}
+		normalize(source);
+		while (1) {
+			pair<ll, ll> t=flow(source, sink, k);
+			fl+=t.F;
+			k-=t.F;
+			co+=t.S;
+			if (k==0||t.F==0) break;
 		}
-		return {r, co};
-	}
-	
-	void addEdge(int a, int b, ll capa, ll cost) {
-		if (f[a][b]==0&&f[b][a]==0) {
-			g[a].push_back(b);
-			g[b].push_back(a);
-		}
-		f[a][b]=capa;
-		c[a][b]=cost;
-		c[b][a]=-cost;
-	}
-	
-	MinCostFlow(int n) : f(n+1), c(n+1), g(n+1), d(n+1), from(n+1), inq(n+1) {
-		for (int i=1;i<=n;i++) {
-			f[i]=vector<ll>(n+1);
-			c[i]=vector<ll>(n+1);
-		}
+		return {fl, co};
 	}
 };
