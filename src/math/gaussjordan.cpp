@@ -11,12 +11,10 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 const ld eps=1e-12;
-
 // Using doubles
 int gaussD (vector<vector<ld> > a, vector<ld>& ans) {
 	int n=(int)a.size();
 	int m=(int)a[0].size()-1;
-	
 	vector<int> where(m,-1);
 	for (int col=0,row=0;col<m&&row<n;col++) {
 		int sel=row;
@@ -28,7 +26,6 @@ int gaussD (vector<vector<ld> > a, vector<ld>& ans) {
 			swap (a[sel][i], a[row][i]);
 		}
 		where[col]=row;
-		
 		for (int i=0;i<n;i++) {
 			if (i!=row) {
 				ld c=a[i][col]/a[row][col];
@@ -39,7 +36,6 @@ int gaussD (vector<vector<ld> > a, vector<ld>& ans) {
 		}
 		row++;
 	}
-	
 	ans.assign(m, 0);
 	for (int i=0;i<m;i++) {
 		if (where[i]!=-1) ans[i]=a[where[i]][m]/a[where[i]][i];
@@ -51,13 +47,11 @@ int gaussD (vector<vector<ld> > a, vector<ld>& ans) {
 		}
 		if (abs(sum-a[i][m])>eps) return 0;
 	}
-	
 	for (int i=0;i<m;i++) {
 		if (where[i]==-1) return 2;
 	}
 	return 1;
 }
-
 // mod 2
 // n is number of rows m is number of variables
 const int M=4;
@@ -72,7 +66,6 @@ int gaussM(vector<bitset<M> > a, int n, int m, bitset<M-1>& ans) {
 		}
 		if (!a[row][col]) continue;
 		where[col]=row;
-		
 		for (int i=0;i<n;i++) {
 			if (i!=row&&a[i][col]) {
 				a[i]^=a[row];
@@ -98,7 +91,6 @@ int gaussM(vector<bitset<M> > a, int n, int m, bitset<M-1>& ans) {
 	}
 	return 1;
 }
-
 int main() {
 	// Should output 2, 1 2 0
 	vector<vector<ld> > d(3);
@@ -108,7 +100,6 @@ int main() {
 	vector<ld> da;
 	cout<<gaussD(d, da)<<endl;
 	cout<<da[0]<<" "<<da[1]<<" "<<da[2]<<endl;
-	
 	// Should output 1, 110
 	// Note that bitsets are printed in reverse order
 	bitset<M> r1("0110");

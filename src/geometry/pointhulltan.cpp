@@ -4,6 +4,7 @@
 // Pointhulltan returns {-1, -1} if the point is inside the polygon, otherwise
 // it returs {maximal, minimal} vertices in terms of visibility from point p
 // Remember to implement the special case n<=2
+// Points on the boundary are considered to be inside
 #include <bits/stdc++.h>
 #define F first
 #define S second

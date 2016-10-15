@@ -24,10 +24,7 @@ struct Node {
 		}
 	}
 	Node(int i) : id(i) {
-		c[0]=0;
-		c[1]=0;
-		p=0;
-		rev=0;
+		c[0]=0;c[1]=0;p=0;rev=0;
 	}
 };
 struct LinkCut {
@@ -52,12 +49,10 @@ struct LinkCut {
 		while (!x->isr()) {
 			if (x->p->isr()) rot(x);
 			else if(x->dir()==x->p->dir()) {
-				rot(x->p);
-				rot(x);
+				rot(x->p);rot(x);
 			}
 			else {
-				rot(x);
-				rot(x);
+				rot(x);rot(x);
 			}
 		}
 	}

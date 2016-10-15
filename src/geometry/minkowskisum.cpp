@@ -57,8 +57,7 @@ vector<co> minkowski(vector<co>&a, vector<co>&b) {
 	int f2=0;
 	for (int i=0;i<n;i++) {
 		if (ccw(a[(i-1+n)%n], a[i], a[(i+1)%n])!=0) {
-			f1=i;
-			break;
+			f1=i;break;
 		}
 	}
 	for (int i=0;i<n;i++) {
@@ -66,8 +65,7 @@ vector<co> minkowski(vector<co>&a, vector<co>&b) {
 	}
 	for (int i=0;i<m;i++) {
 		if (ccw(b[(i-1+m)%m], b[i], b[(i+1)%m])!=0) {
-			f2=i;
-			break;
+			f2=i;break;
 		}
 	}
 	for (int i=0;i<m;i++) {

@@ -8,13 +8,11 @@
 using namespace std;
 typedef long long ll;
 const int inf=2e9;
-
 struct MaxFlow {
 	vector<vector<int> > f;
 	vector<vector<int> > g;
 	vector<int> fr;
 	vector<int> used;
-	
 	int flow(int so, int si, int n) {
 		queue<pair<pair<int, int>, int> > bfs;
 		bfs.push({{0, so}, inf});

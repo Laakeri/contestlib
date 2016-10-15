@@ -6,7 +6,6 @@
 using namespace std;
 typedef long long ll;
 typedef __int128 lll;
-
 lll powmod(lll a, lll p, lll mod) {
 	if (p==0) return 1;
 	if (p%2==0) {
@@ -15,7 +14,6 @@ lll powmod(lll a, lll p, lll mod) {
 	}
 	return (a*powmod(a, p-1, mod))%mod;
 }
-
 bool is_w(ll a, ll even, ll odd, ll p) {
 	lll u = powmod(a, odd, p);
 	if (u==1) return 0;
@@ -26,7 +24,6 @@ bool is_w(ll a, ll even, ll odd, ll p) {
 	}
 	return 1;
 }
-
 bool isPrime(ll p) {
 	if (p==2) return 1;
 	if (p<=1||p%2==0) return 0;

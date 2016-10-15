@@ -13,11 +13,9 @@ typedef long long ll;
 // Coordinate type
 typedef ll CT;
 typedef complex<CT> co;
-
 bool ccw(co a, co b, co c) {
 	return ((c-a)*conj(b-a)).Y>0;
 }
-
 vector<co> convexHull(vector<co> ps) {
 	auto cmp = [](co a, co b) {
 		if (a.X==b.X) return a.Y<b.Y;
@@ -25,10 +23,8 @@ vector<co> convexHull(vector<co> ps) {
 	};
 	sort(ps.begin(), ps.end(), cmp);
 	ps.erase(unique(ps.begin(), ps.end()), ps.end());
-	
 	int n=ps.size();
 	if (n<=2) return ps;
-	
 	vector<co> hull;
 	hull.push_back(ps[0]);
 	for (int d=0;d<2;d++) {
