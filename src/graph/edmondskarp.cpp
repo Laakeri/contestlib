@@ -2,13 +2,11 @@
 // f is the capacity network and the actual flow can be found in it
 // If edges for both directions are used finding actual flow is harder
 // Uses 1-indexing
-
 #include <bits/stdc++.h>
 #define F first
 #define S second
 using namespace std;
 typedef long long ll;
-
 const int inf=2e9;
 
 struct MaxFlow {

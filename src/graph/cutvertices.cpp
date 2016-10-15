@@ -6,7 +6,6 @@
 #define F first
 #define S second
 using namespace std;
-
 struct Biconnected {
 	vector<int> cut, h, d, used;
 	vector<map<int, vector<int> > > bg;
@@ -46,7 +45,6 @@ struct Biconnected {
 			else cut[x]=0;
 		}
 	}
-	
 	Biconnected(vector<int>* g, int n) : cut(n+1), h(n+1), d(n+1), used(n+1), bg(n+1) {
 		cc=1;
 		for (int i=1;i<=n;i++) {

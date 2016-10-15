@@ -7,9 +7,7 @@
 using namespace std;
 using namespace __gnu_pbds;
 //using namespace pb_ds;
-
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-
 int main() {
 	ordered_set X;
 	X.insert(1);

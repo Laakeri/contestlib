@@ -7,13 +7,11 @@
 #define F first
 #define S second
 using namespace std;
-
 struct AhoCorasick {
 	vector<map<char, int> > g;
 	vector<int> link;
 	vector<int> tlink;
 	vector<int> te;
-	
 	// Use 1-indexing in id
 	void addString(const string& s, int id) {
 		int tn=0;
@@ -29,7 +27,6 @@ struct AhoCorasick {
 		}
 		te[tn]=id;
 	}
-	
 	void pushLinks() {
 		queue<int> bfs;
 		bfs.push(0);
@@ -50,7 +47,6 @@ struct AhoCorasick {
 			}
 		}
 	}
-	
 	// Returns matches {id, endpos}
 	vector<pair<int, int> > match(const string& s) {
 		int tn=0;
@@ -68,7 +64,6 @@ struct AhoCorasick {
 		}
 		return re;
 	}
-	
 	AhoCorasick() {
 		g.push_back(map<char, int>());
 		link.push_back(-1);

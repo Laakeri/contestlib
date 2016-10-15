@@ -8,13 +8,11 @@
 using namespace std;
 typedef long long ll;
 typedef __int128 lll;
-
 ll ee(ll ca, ll cb, ll xa, ll xb, ll&x) {
 	if (cb) return ee(cb, ca%cb, xb, xa-(ca/cb)*xb, x);
 	x = xa;
 	return ca;
 }
-
 pair<int, pair<ll, ll>> crt(vector<ll> as, vector<ll> ms) {
 	ll aa = 0, mm = 1, d, a, x;
 	for (int i = 0; i < (int) as.size(); i++) {

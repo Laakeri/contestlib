@@ -8,7 +8,6 @@
 #define F first
 #define S second
 using namespace std;
-
 struct Bridges {
 	vector<int> c, h;
 	void dfs(vector<pair<int, int> >* g, int x, int pe, int d, vector<int>& ns) {

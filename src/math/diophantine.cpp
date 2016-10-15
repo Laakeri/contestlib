@@ -7,7 +7,6 @@
 #define S second
 using namespace std;
 typedef long long ll;
-
 ll ee(ll a, ll b, ll ca, ll cb, ll xa, ll xb, ll&x, ll&y) {
 	if (cb==0) {
 		x=xa;
@@ -17,7 +16,6 @@ ll ee(ll a, ll b, ll ca, ll cb, ll xa, ll xb, ll&x, ll&y) {
 	}
 	else return ee(a, b, cb, ca%cb, xb, xa-(ca/cb)*xb, x, y);
 }
-
 pair<int, pair<ll, ll> > solve(ll a, ll b, ll c) {
 	if (c==0) return {1, {0, 0}};
 	if (a==0&&b==0) return {0, {0, 0}};

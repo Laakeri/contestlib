@@ -3,7 +3,6 @@
 // Time complexity of adding one character is amortized O(1)
 #include <bits/stdc++.h>
 using namespace std;
-
 struct SuffixAutomaton {
 	vector<map<char, int> > g;
 	vector<int> link;

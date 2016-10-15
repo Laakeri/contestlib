@@ -6,7 +6,6 @@
 #define F first
 #define S second
 using namespace std;
-
 vector<int> suffixArray(vector<int> s) {
 	int n=s.size();
 	vector<int> k(n);

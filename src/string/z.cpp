@@ -6,7 +6,6 @@
 // z[0]=0 by definition
 #include <bits/stdc++.h>
 using namespace std;
-
 vector<int> zAlgo(vector<int> s) {
 	int n=s.size();
 	vector<int> z(n);

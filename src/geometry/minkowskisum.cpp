@@ -14,18 +14,15 @@ typedef long long ll;
 // Coordinate type
 typedef ll CT;
 typedef complex<CT> co;
-
 ll ccw(co a, co b, co c) {
 	return ((c-a)*conj(b-a)).Y;
 }
-
 int ar(co x) {
 	if (x.Y>=0&&x.X<0) return 1;
 	if (x.X>=0&&x.Y>0) return 2;
 	if (x.Y<=0&&x.X>0) return 3;
 	return 4;
 }
-
 bool cp(pair<co, pair<int, int> > p1, pair<co, pair<int, int> > p2) {
 	if (ar(p1.F)!=ar(p2.F)) {
 		return ar(p1.F)<ar(p2.F);
@@ -36,7 +33,6 @@ bool cp(pair<co, pair<int, int> > p1, pair<co, pair<int, int> > p2) {
 	}
 	return ccw({0, 0}, p2.F, p1.F)>0;
 }
-
 vector<co> minkowski(vector<co>&a, vector<co>&b) {
 	int n=a.size();
 	int m=b.size();

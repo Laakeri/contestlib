@@ -9,20 +9,16 @@
 using namespace std;
 typedef long long ll;
 typedef complex<ll> co;
-
 const ll inf=2e18;
-
 ll csqrt(ll x) {
 	ll r=sqrt(x);
 	while (r*r<x) r++;
 	while (r*r>x) r--;
 	return r;
 }
-
 ll sq(ll x) {
 	return x*x;
 }
-
 ll closestPoints(vector<co> points) {
 	int n=points.size();
 	vector<pair<ll, ll> > ps(n);

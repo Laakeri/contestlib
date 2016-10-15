@@ -8,12 +8,10 @@ const ll mod=1045430273;
 // Number whose order mod mod is 2^20
 const ll root=363;
 const ll root_pw=1<<20;
-
 // 128 bit
 //const lll mod=2097152000007340033;
 //const lll root=2014907510281342032;
 //const lll root_pw=1<<20;
-
 ll pot(ll x, ll p) {
 	if (p==0) return 1;
 	if (p%2==0) {
@@ -22,11 +20,9 @@ ll pot(ll x, ll p) {
 	}
 	return (x*pot(x, p-1))%mod;
 }
-
 ll inv(ll x) {
 	return pot(x, mod-2);
 }
-
 vector<ll> fft (vector<ll> a, int d) {
 	ll root_1=inv(root);
 	int n=(int)a.size();
@@ -71,7 +67,6 @@ vector<ll> fft (vector<ll> a, int d) {
 	}
 	return a;
 }
-
 vector<ll> conv(vector<ll> a, vector<ll> b) {
 	int as=a.size();
 	int bs=b.size();
@@ -97,7 +92,6 @@ vector<ll> conv(vector<ll> a, vector<ll> b) {
 	c.resize(as+bs-1);
 	return c;
 }
-
 int main() {
 	// Shoud print 12 11 30 7
 	vector<ll> a={3, 2, 7};

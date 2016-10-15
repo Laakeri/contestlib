@@ -9,7 +9,6 @@
 #define F first
 #define S second
 using namespace std;
-
 struct DynamicConnectivity {
 	struct Edge {
 		int a, b, l, r;

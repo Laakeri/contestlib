@@ -18,12 +18,10 @@
 #define F first
 #define S second
 using namespace std;
-
 struct EulerTour {
 	int dir;
 	vector<vector<pair<int, int> > > g;
 	vector<int> used;
-	
 	void dfs(int x, vector<int>& ret) {
 		int t=x;
 		vector<int> c;
@@ -42,7 +40,6 @@ struct EulerTour {
 			if (g[a].size()>0) dfs(a, ret);
 		}
 	}
-	
 	EulerTour(vector<int>* og, int n, vector<int>& ret, int d=0) : dir(d), g(n+1) {
 		int i2=0;
 		for (int i=1;i<=n;i++) {

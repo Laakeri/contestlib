@@ -3,7 +3,6 @@
 // You can change vector<int> s to string s
 #include <bits/stdc++.h>
 using namespace std;
-
 vector<int> lcpArray(vector<int> s, vector<int> sa) {
 	int n=s.size();
 	int k=0;

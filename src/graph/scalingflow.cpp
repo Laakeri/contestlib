@@ -3,20 +3,17 @@
 // O(E^2 log U), where U is maximum possible flow
 // In practice O(E^2)
 // Uses 1-indexing
-
 #include <bits/stdc++.h>
 #define F first
 #define S second
 using namespace std;
 typedef long long ll;
-
 struct MaxFlow {
 	// Use vector<map<int, ll> > for sparse graphs
 	vector<vector<ll> > f;
 	vector<vector<int> > g;
 	vector<int> used;
 	int cc;
-	
 	ll flow(int x, int t, ll fl, ll miv) {
 		if (x==t) return fl;
 		used[x]=cc;
@@ -32,7 +29,6 @@ struct MaxFlow {
 		}
 		return 0;
 	}
-	
 	// maxv is maximum expected maxflow
 	ll getMaxFlow(int source, int sink, ll maxv) {
 		cc=1;
@@ -48,7 +44,6 @@ struct MaxFlow {
 		}
 		return r;
 	}
-	
 	void addEdge(int a, int b, ll c) {
 		if (f[a][b]==0&&f[b][a]==0) {
 			g[a].push_back(b);
@@ -56,7 +51,6 @@ struct MaxFlow {
 		}
 		f[a][b]+=c;
 	}
-	
 	MaxFlow(int n) : f(n+1), g(n+1), used(n+1) {
 		for (int i=1;i<=n;i++) {
 			f[i]=vector<ll>(n+1);

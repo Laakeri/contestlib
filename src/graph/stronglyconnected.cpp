@@ -4,11 +4,9 @@
 // Uses 1-indexing
 #include <bits/stdc++.h>
 using namespace std;
-
 struct SCC {
 	vector<int> used;
 	vector<vector<int> > g2;
-	
 	void dfs1(vector<int>* g, int x, vector<int>& ns) {
 		if (used[x]==1) return;
 		used[x]=1;
@@ -18,7 +16,6 @@ struct SCC {
 		}
 		ns.push_back(x);
 	}
-	
 	void dfs2(int x, vector<int>& co) {
 		if (used[x]==2) return;
 		used[x]=2;
@@ -27,7 +24,6 @@ struct SCC {
 			dfs2(nx, co);
 		}
 	}
-	
 	// Returns strongly connected components of the graph in vector ret
 	// n is the size of the graph, g is the adjacency list
 	SCC(vector<int>* g, int n, vector<vector<int> >& ret) : used(n+1), g2(n+1) {

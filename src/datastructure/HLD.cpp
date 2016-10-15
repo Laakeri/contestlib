@@ -8,7 +8,6 @@
 #define F first
 #define S second
 using namespace std;
-
 struct HLD {
 	vector<int> aps, pRoot, pLI, pRI, nPath, nPathId, p;
 	int index;

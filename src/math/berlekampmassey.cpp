@@ -3,7 +3,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-
 ll powmod(ll a, ll p, ll modd) {
 	if (p==0) return 1;
 	if (p%2==0) {
@@ -12,11 +11,9 @@ ll powmod(ll a, ll p, ll modd) {
 	}
 	return (a*powmod(a, p-1, modd))%modd;
 }
-
 ll invp(ll a, ll p) {
 	return powmod(a, p - 2, p);
 }
-
 vector<ll> solve(vector<ll> S, ll mod) {
 	vector<ll> C = {1};
 	vector<ll> B = {1};
@@ -61,7 +58,6 @@ vector<ll> solve(vector<ll> S, ll mod) {
 	}
 	return C;
 }
-
 struct LinearRecurrence {
 	vector<vector<ll> > mat;
 	vector<ll> seq;

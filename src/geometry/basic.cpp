@@ -17,48 +17,40 @@ typedef long long ll;
 typedef ld CT;
 typedef complex<CT> co;
 CT eps=1e-12;
-
 // Return true iff points a, b, c are CCW oriented.
 bool ccw(co a, co b, co c) {
 	return ((c-a)*conj(b-a)).Y>0;
 }
-
 // Return true iff points a, b, c are collinear.
 // Note: doesn't make much sense with non-integer CT.
 bool collinear(co a, co b, co c) {
 	return abs(((c-a)*conj(b-a)).Y)<eps;
 }
-
 // Rotate x with agle ang
 co rotate(co x, CT ang) {
 	return x*polar((CT)1, ang);
 }
-
 // Check whether segments [a, b] and [c, d] intersect.
 // The segments must not be collinear. Doesn't handle edge cases (endpoint of
 // a segment on the other segment) consistently.
 bool intersects(co a, co b, co c, co d) {
 	return ccw(a, d, b)!=ccw(a, c, b)&&ccw(c, a, d)!=ccw(c, b, d);
 }
-
 // Interpolate between points a and b with parameter t.
 co interpolate(CT t, co a, co b) {
 	return a+t*(b-a);
 }
-
 // Return interpolation parameter between a and b of projection of v to the
 // line defined by a and b.
 // Note: no rounding behavior specified for integers.
 CT projectionParam(co v, co a, co b) {
 	return ((v-a)/(b-a)).X;
 }
-
 // Compute the distance of point v from line a..b.
 // Note: Only for non-integers!
 CT pointLineDistance(co p, co a, co b) {
 	return abs(((p-a)/(b-a)).Y)*abs(b-a);
 }
-
 // Compute the distance of point v from segment a..b.
 // Note: Only for non-integers!
 CT pointSegmentDistance(co p, co a, co b) {
@@ -67,7 +59,6 @@ CT pointSegmentDistance(co p, co a, co b) {
 	if(z.X>1) return abs(p-b);
 	return abs(z.Y)*abs(b-a);
 }
-
 // Return interpolation parameter between a and b of the point that is also
 // on line c..d.
 // Note: Only for non-integers!
@@ -77,7 +68,6 @@ CT intersectionParam(co a, co b, co c, co d) {
 	co v=(d-a)/(b-a);
 	return (u.X*v.Y-u.Y*v.X)/(v.Y-u.Y);
 }
-
 pair<int, pair<co, co> > circleIntersection(co p1, CT r1, co p2, CT r2){
 	if (norm(p1-p2)>(r1+r2)*(r1+r2)||norm(p1-p2)<(r1-r2)*(r1-r2)) return {0, {{0, 0}, {0, 0}}};
 	if (abs(p1-p2)<eps&&abs(r1-r2)<eps) return {3, {{p1.X, p1.Y+r1}, {p1.X+r1, p1.Y}}};
@@ -90,7 +80,6 @@ pair<int, pair<co, co> > circleIntersection(co p1, CT r1, co p2, CT r2){
 	if (abs(v1-v2)<eps) return {1, {v1, v1}};
 	return {2, {v1, v2}};
 }
-
 // Intersection of lines a..b and c..d
 // Only for doubles
 pair<int, co> lineIntersection(co a, co b, co c, co d) {
@@ -105,13 +94,11 @@ pair<int, co> lineIntersection(co a, co b, co c, co d) {
 		return {1, a*(1-t)+b*t};
 	}
 }
-
 // Is b between a and c
 // Only for doubles
 int between(co a, co b, co c) {
 	return abs(abs(a-b)+abs(b-c)-abs(a-c))<eps;
 }
-
 // Intersection of segments a..b and c..d
 // Only for doubles
 pair<int, pair<co, co> > segmentIntersection(co a, co b, co c, co d) {
@@ -157,7 +144,6 @@ pair<int, pair<co, co> > segmentIntersection(co a, co b, co c, co d) {
 		}
 	}
 }
-
 //Returns a point from the ray bisecting the non-reflex angle abc.
 //Only for doubles. Returns 0 if the points are collinear.
 pair<co,int> angleBisector(co a, co b, co c) {

@@ -7,7 +7,6 @@ typedef long double ld;
 typedef long long ll;
 typedef complex<ld> co;
 const ld PI=atan2(0, -1);
-
 vector<co> fft(vector<co> x, int d) {
 	int n=x.size();
 	for (int i=0;i<n;i++) {
@@ -40,7 +39,6 @@ vector<co> fft(vector<co> x, int d) {
 	}
 	return x;
 }
-
 vector<ll> conv(vector<ll> a, vector<ll> b) {
 	int as=a.size();
 	int bs=b.size();
@@ -70,7 +68,6 @@ vector<ll> conv(vector<ll> a, vector<ll> b) {
 	}
 	return r;
 }
-
 int main() {
 	// Shoud print 12 11 30 7
 	vector<ll> a={3, 2, 7};
