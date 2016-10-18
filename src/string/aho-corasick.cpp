@@ -9,9 +9,7 @@
 using namespace std;
 struct AhoCorasick {
 	vector<map<char, int> > g;
-	vector<int> link;
-	vector<int> tlink;
-	vector<int> te;
+	vector<int> link, tlink, te;
 	// Use 1-indexing in id
 	void addString(const string& s, int id) {
 		int tn=0;
@@ -38,12 +36,8 @@ struct AhoCorasick {
 				while (l!=-1&&g[l].count(nx.F)==0) l=link[l];
 				if (l!=-1) link[nx.S]=g[l][nx.F];
 				bfs.push(nx.S);
-				if (te[link[nx.S]]) {
-					tlink[nx.S]=link[nx.S];
-				}
-				else{
-					tlink[nx.S]=tlink[link[nx.S]];
-				}
+				if (te[link[nx.S]]) tlink[nx.S]=link[nx.S];
+				else tlink[nx.S]=tlink[link[nx.S]];
 			}
 		}
 	}

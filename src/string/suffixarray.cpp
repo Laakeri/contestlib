@@ -9,9 +9,7 @@ using namespace std;
 vector<int> suffixArray(vector<int> s) {
 	int n=s.size();
 	vector<int> k(n);
-	for (int i=0;i<n;i++) {
-		k[i]=s[i];
-	}
+	for (int i=0;i<n;i++) k[i]=s[i];
 	vector<pair<pair<int, int>, int> > v(n);
 	for (int t=1;t<=n;t*=2) {
 		for (int i=0;i<n;i++) {
