@@ -1,6 +1,7 @@
 // TCR
 // Find minimum-cost k-flow
 // O(VE) normalizing and O(E log V) for each augmenting path
+// getKFlow augments at most k flow and returns {flow, cost}
 // Uses 1-indexing
 #include <bits/stdc++.h>
 #define F first
@@ -27,12 +28,10 @@ template<int V, int E> struct MinCostFlow {
 	void normalize(int source) {
 		if (nmz) return;nmz=1;
 		for (int i=1;i<=V;i++) {
-			p[i]=inf;
-			u[i]=0;
+			p[i]=inf;u[i]=0;
 		}
 		p[source]=0;
-		queue<int> q;
-		q.push(source);
+		queue<int> q;q.push(source);
 		while (!q.empty()){
 			int x=q.front();
 			u[x]=0;q.pop();
@@ -85,14 +84,11 @@ template<int V, int E> struct MinCostFlow {
 		else return {0, 0};
 	}
 	pair<ll, ll> getKFlow(int source, int sink, ll k) {
-		ll fl=0;
-		ll co=0;
+		ll fl=0;ll co=0;
 		normalize(source);
 		while (1) {
 			pair<ll, ll> t=flow(source, sink, k);
-			fl+=t.F;
-			k-=t.F;
-			co+=t.S;
+			fl+=t.F;k-=t.F;co+=t.S;
 			if (k==0||t.F==0) break;
 		}
 		return {fl, co};

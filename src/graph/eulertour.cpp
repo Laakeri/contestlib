@@ -1,17 +1,12 @@
 // TCR
-// NOT TESTED PROPERLY
+// NOT TESTED PROPERLY??
 // Finds Euler tour of graph in O(E) time
-
-// Parameters are the adjacency list, number of nodes, 
-// return value vector, and d=1 if the graph is directed
-// Return array contains E+1 elements, the first and last
-// elements are same
-
+// Parameters are the adjacency list, number of nodes, return value vector,
+// and d=1 if the graph is directed
+// Return array contains E+1 elements, the first and last elements are same
 // Undefined behavior if Euler tour doesn't exist
-
-// Note that Eulerian path can be reduced to Euler tour
-// by adding an edge from the last vertex to the first
-
+// Note that Eulerian path can be reduced to Euler tour by adding an edge from the 
+// last vertex to the first
 // In bidirectional graph edges must be in both direction
 // Be careful to not add loops twice in case of bidirectional graph
 #include <bits/stdc++.h>
@@ -23,14 +18,12 @@ struct EulerTour {
 	vector<vector<pair<int, int> > > g;
 	vector<int> used;
 	void dfs(int x, vector<int>& ret) {
-		int t=x;
-		vector<int> c;
+		int t=x;vector<int> c;
 		while (1) {
 			while (used[g[t].back().S]) g[t].pop_back();
 			auto nx=g[t].back();
 			g[t].pop_back();
-			used[nx.S]=1;
-			t=nx.F;
+			used[nx.S]=1;t=nx.F;
 			c.push_back(t);
 			if (t==x) break;
 		}

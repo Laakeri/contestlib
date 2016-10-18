@@ -16,18 +16,15 @@ struct DynamicConnectivity {
 	vector<int> ret, tq, id, is;
 	vector<vector<int> > g;
 	int dfs(int x, int c) {
-		id[x]=c;
-		int r=is[x];
-		for (int nx:g[x])
-			if (!id[nx]) r|=dfs(nx, c);
+		id[x]=c;int r=is[x];
+		for (int nx:g[x]) if (!id[nx]) r|=dfs(nx, c);
 		return r;
 	}
 	void go(int l, int r, int n, int out, vector<Edge>& es) {
 		vector<Edge> nes;
 		for (int i=1;i<=n;i++) {
 			g[i].clear();
-			id[i]=0;
-			is[i]=0;
+			id[i]=0;is[i]=0;
 		}
 		for (auto e:es) {
 			if (e.l>r||e.r<l||e.a==e.b) continue;
@@ -37,8 +34,7 @@ struct DynamicConnectivity {
 			}
 			else {
 				nes.push_back(e);
-				is[e.a]=1;
-				is[e.b]=1;
+				is[e.a]=1;is[e.b]=1;
 			}
 		}
 		int i2=1;
@@ -50,13 +46,10 @@ struct DynamicConnectivity {
 					else i2++;
 				}
 			}
-			else {
-				out++;
-			}
+			else out++;
 		}
 		for (auto&e:nes) {
-			e.a=id[e.a];
-			e.b=id[e.b];
+			e.a=id[e.a];e.b=id[e.b];
 		}
 		if (l==r) {
 			if (tq[l]) ret[tq[l]-1]=out+i2-1;
@@ -73,8 +66,7 @@ struct DynamicConnectivity {
 		id.resize(n+1);
 		is.resize(n+1);
 		g.resize(n+1);
-		int qs=0;
-		vector<Edge> es;
+		int qs=0;vector<Edge> es;
 		for (int i=0;i<(int)queries.size();i++) {
 			auto q=queries[i];
 			if (q.S.F>q.S.S) swap(q.S.F, q.S.S);

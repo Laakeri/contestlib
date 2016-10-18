@@ -21,8 +21,7 @@ struct MaxFlow {
 			if (used[nx]!=cc&&f[x][nx]>=miv) {
 				ll r=flow(nx, t, min(fl, f[x][nx]), miv);
 				if (r>0) {
-					f[x][nx]-=r;
-					f[nx][x]+=r;
+					f[x][nx]-=r;f[nx][x]+=r;
 					return r;
 				}
 			}
@@ -31,14 +30,11 @@ struct MaxFlow {
 	}
 	// maxv is maximum expected maxflow
 	ll getMaxFlow(int source, int sink, ll maxv) {
-		cc=1;
-		ll r=0;
-		ll k=1;
+		cc=1;ll r=0;ll k=1;
 		while (k*2<=maxv) k*=2;
 		for (;k>0;k/=2) {
 			while (ll t=flow(source, sink, maxv, k)) {
-				r+=t;
-				cc++;
+				r+=t;cc++;
 			}
 			cc++;
 		}

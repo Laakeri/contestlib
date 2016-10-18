@@ -18,8 +18,7 @@ struct Biconnected {
 			if (nx!=p) {
 				if (!used[nx]) es.push_back({x, nx});
 				if (d[nx]==0) {
-					f++;
-					d[nx]=d[x]+1;
+					f++;d[nx]=d[x]+1;
 					int ts=es.size();
 					dfs(g, nx, x);
 					h[x]=min(h[x], h[nx]);
@@ -29,12 +28,10 @@ struct Biconnected {
 							auto e=es.back();
 							bg[e.F][cc].push_back(e.S);
 							bg[e.S][cc].push_back(e.F);
-							used[e.S]=1;
-							used[e.F]=1;
+							used[e.S]=1;used[e.F]=1;
 							es.pop_back();
 						}
-						used[x]=0;
-						cc++;
+						used[x]=0;cc++;
 					}
 				}
 				h[x]=min(h[x], d[nx]);
@@ -45,12 +42,11 @@ struct Biconnected {
 			else cut[x]=0;
 		}
 	}
-	Biconnected(vector<int>* g, int n) : cut(n+1), h(n+1), d(n+1), used(n+1), bg(n+1) {
+	Biconnected(vector<int>* g, int n):cut(n+1),h(n+1), d(n+1), used(n+1), bg(n+1) {
 		cc=1;
 		for (int i=1;i<=n;i++) {
 			if (d[i]==0) {
-				d[i]=1;
-				dfs(g, i, 0);
+				d[i]=1;dfs(g, i, 0);
 			}
 		}
 	}

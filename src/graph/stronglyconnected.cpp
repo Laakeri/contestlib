@@ -2,6 +2,8 @@
 // Kosaraju's algorithm for strongly connected components O(V+E)
 // Components will be returned in topological order
 // Uses 1-indexing
+// Returns strongly connected components of the graph in vector ret
+// n is the size of the graph, g is the adjacency list
 #include <bits/stdc++.h>
 using namespace std;
 struct SCC {
@@ -20,17 +22,11 @@ struct SCC {
 		if (used[x]==2) return;
 		used[x]=2;
 		co.push_back(x);
-		for (int nx:g2[x]) {
-			dfs2(nx, co);
-		}
+		for (int nx:g2[x]) dfs2(nx, co);
 	}
-	// Returns strongly connected components of the graph in vector ret
-	// n is the size of the graph, g is the adjacency list
 	SCC(vector<int>* g, int n, vector<vector<int> >& ret) : used(n+1), g2(n+1) {
 		vector<int> ns;
-		for (int i=1;i<=n;i++) {
-			dfs1(g, i, ns);
-		}
+		for (int i=1;i<=n;i++) dfs1(g, i, ns);
 		for (int i=n-1;i>=0;i--) {
 			if (used[ns[i]]!=2) {
 				ret.push_back(vector<int>());
