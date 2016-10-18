@@ -1,4 +1,4 @@
-Each line should be at most 85 characters long
+Each line should be at most 84 characters long
 
 Lines should be merged if it looks ok and the resulting line is not too long
 

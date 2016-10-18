@@ -30,7 +30,7 @@ vector<co> convexHull(vector<co> ps) {
 		if (d) reverse(ps.begin(), ps.end());
 		int s=hull.size();
 		for (int i=1;i<n;i++) {
-			while ((int)hull.size()>s&&!ccw(hull[hull.size()-2],hull.back(),ps[i])) {
+			while ((int)hull.size()>s&&!ccw(hull[hull.size()-2],hull.back(),ps[i])){
 				hull.pop_back();
 			}
 			hull.push_back(ps[i]);
