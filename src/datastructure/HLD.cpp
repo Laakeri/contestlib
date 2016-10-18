@@ -5,8 +5,6 @@
 // lca(a, b) is in the last path of the vector
 // Uses 1-indexing
 #include <bits/stdc++.h>
-#define F first
-#define S second
 using namespace std;
 struct HLD {
 	vector<int> aps, pRoot, pLI, pRI, nPath, nPathId, p;

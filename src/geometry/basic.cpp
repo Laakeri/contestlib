@@ -5,8 +5,7 @@
 	CT abs(co x): Length
 	CT norm(co x): Square of length
 	CT arg(co x): Angle
-	co polar(CT length, CT angle): Complex from polar components
-*/
+	co polar(CT length, CT angle): Complex from polar components*/
 #include <bits/stdc++.h>
 #define X real()
 #define Y imag()
@@ -16,7 +15,7 @@ typedef long long ll;
 // Coordinate type
 typedef ld CT;
 typedef complex<CT> co;
-CT eps=1e-12;
+ld eps=1e-12;
 // Return true iff points a, b, c are CCW oriented.
 bool ccw(co a, co b, co c) {
 	return ((c-a)*conj(b-a)).Y>0;
@@ -68,9 +67,13 @@ CT intersectionParam(co a, co b, co c, co d) {
 	co v=(d-a)/(b-a);
 	return (u.X*v.Y-u.Y*v.X)/(v.Y-u.Y);
 }
-pair<int, pair<co, co> > circleIntersection(co p1, CT r1, co p2, CT r2){
-	if (norm(p1-p2)>(r1+r2)*(r1+r2)||norm(p1-p2)<(r1-r2)*(r1-r2)) return {0, {{0, 0}, {0, 0}}};
-	if (abs(p1-p2)<eps&&abs(r1-r2)<eps) return {3, {{p1.X, p1.Y+r1}, {p1.X+r1, p1.Y}}};
+// Intersection points of circles with centers p1 and p2 with radiuses r1 and r2
+// The first return value is the number of intersection points, 3 for infinite
+pair<int, pair<co, co> > circleIntersection(co p1, CT r1, co p2, CT r2) {
+	if (norm(p1-p2)>(r1+r2)*(r1+r2)||norm(p1-p2)<(r1-r2)*(r1-r2)) 
+		return {0, {{0, 0}, {0, 0}}};
+	if (abs(p1-p2)<eps&&abs(r1-r2)<eps) 
+		return {3, {{p1.X, p1.Y+r1}, {p1.X+r1, p1.Y}}};
 	CT a=abs(p1-p2);
 	CT x=(r1*r1-r2*r2+a*a)/(2*a);
 	co v1={x, sqrt(r1*r1-x*x)};
@@ -83,14 +86,14 @@ pair<int, pair<co, co> > circleIntersection(co p1, CT r1, co p2, CT r2){
 // Intersection of lines a..b and c..d
 // Only for doubles
 pair<int, co> lineIntersection(co a, co b, co c, co d) {
-	if (collinear(a, b, c)&&collinear(a, b, d)){
+	if (collinear(a, b, c)&&collinear(a, b, d)) {
 		return {2, a};
 	}
-	else if(abs(((b-a)/(c-d)).Y)<eps){
+	else if(abs(((b-a)/(c-d)).Y)<eps) {
 		return {0, {0, 0}};
 	}
-	else{
-		ld t=intersectionParam(a, b, c, d);
+	else {
+		CT t=intersectionParam(a, b, c, d);
 		return {1, a*(1-t)+b*t};
 	}
 }
@@ -101,25 +104,19 @@ int between(co a, co b, co c) {
 }
 // Intersection of segments a..b and c..d
 // Only for doubles
+// The first return value is the number of intersection points, 2 for infinite
+// The second values are the endpoints of the intersection segment
 pair<int, pair<co, co> > segmentIntersection(co a, co b, co c, co d) {
-	if (abs(a-b)<eps){
-		if (between(c, a, d)){
-			return {1, {a, a}};
-		}
-		else{
-			return {0, {0, 0}};
-		}
+	if (abs(a-b)<eps) {
+		if (between(c, a, d)) return {1, {a, a}};
+		else return {0, {0, 0}};
 	}
-	else if (abs(c-d)<eps){
-		if (between(a, c, b)){
-			return {1, {c, c}};
-		}
-		else{
-			return {0, {0, 0}};
-		}
+	else if (abs(c-d)<eps) {
+		if (between(a, c, b)) return {1, {c, c}};
+		else return {0, {0, 0}};
 	}
-	else if (collinear(a, b, c)&&collinear(a, b, d)){
-		if (((b-a)/(d-c)).X < 0) swap(c, d);
+	else if (collinear(a, b, c)&&collinear(a, b, d)) {
+		if (((b-a)/(d-c)).X<0) swap(c, d);
 		co beg;
 		if (between(a,c,b)) beg=c;
 		else if (between(c,a,d)) beg=a;
@@ -129,7 +126,7 @@ pair<int, pair<co, co> > segmentIntersection(co a, co b, co c, co d) {
 		if (abs(beg-en)<eps) return {1, {beg, beg}};
 		return {2, {beg, en}};
 	}
-	else if(abs(((b-a)/(c-d)).Y)<eps){
+	else if(abs(((b-a)/(c-d)).Y)<eps) {
 		return {0, {0, 0}};
 	}
 	else {
@@ -138,18 +135,18 @@ pair<int, pair<co, co> > segmentIntersection(co a, co b, co c, co d) {
 		if (u<-eps||u>1+eps||v<-eps||v>1+eps) {
 			return {0, {{0, 0}, {0, 0}}};
 		}
-		else{
+		else {
 			co p=a*(1-u)+b*u;
 			return {1, {p, p}};
 		}
 	}
 }
-//Returns a point from the ray bisecting the non-reflex angle abc.
-//Only for doubles. Returns 0 if the points are collinear.
+// Returns a point from the ray bisecting the non-reflex angle abc.
+// Only for doubles. Returns 0 if the points are collinear.
 pair<co,int> angleBisector(co a, co b, co c) {
-	if (collinear(a,b,c)) return {{0,0},0};
+	if (collinear(a,b,c)) return {{0, 0}, 0};
 	co aa=(a-b)/abs(a-b);
 	co cc=(c-b)/abs(c-b);
 	co bb=sqrt(aa/cc);
-	return {b+bb*cc,1};
+	return {b+bb*cc, 1};
 }

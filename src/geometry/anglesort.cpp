@@ -1,21 +1,17 @@
 // TCR
 // Comparasion function for sorting points around origin
 // Points are sorted in clockwise order
-/*
-122
-143
-443*/
+// Works with integers and doubles
+/*122
+  143
+  443*/
 #include <bits/stdc++.h>
 #define X real()
 #define Y imag()
-#define F first
-#define S second
 using namespace std;
 typedef long double ld;
 typedef long long ll;
-// Coordinate type
-typedef ld CT;
-typedef complex<CT> co;
+typedef complex<ll> co;
 bool ccw(co a, co b, co c) {
 	return ((c-a)*conj(b-a)).Y>0;
 }

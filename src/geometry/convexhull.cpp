@@ -25,13 +25,12 @@ vector<co> convexHull(vector<co> ps) {
 	ps.erase(unique(ps.begin(), ps.end()), ps.end());
 	int n=ps.size();
 	if (n<=2) return ps;
-	vector<co> hull;
-	hull.push_back(ps[0]);
+	vector<co> hull;hull.push_back(ps[0]);
 	for (int d=0;d<2;d++) {
 		if (d) reverse(ps.begin(), ps.end());
 		int s=hull.size();
 		for (int i=1;i<n;i++) {
-			while ((int)hull.size()>s&&!ccw(hull[hull.size()-2], hull.back(), ps[i])) {
+			while ((int)hull.size()>s&&!ccw(hull[hull.size()-2],hull.back(),ps[i])) {
 				hull.pop_back();
 			}
 			hull.push_back(ps[i]);

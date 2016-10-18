@@ -22,17 +22,13 @@ ll sq(ll x) {
 ll closestPoints(vector<co> points) {
 	int n=points.size();
 	vector<pair<ll, ll> > ps(n);
-	for (int i=0;i<n;i++) {
-		ps[i]={points[i].X, points[i].Y};
-	}
+	for (int i=0;i<n;i++) ps[i]={points[i].X, points[i].Y};
 	sort(ps.begin(), ps.end());
-	int i2=0;
-	ll d=inf;
+	int i2=0;ll d=inf;
 	set<pair<ll, ll> > pss;
 	for (int i=0;i<n;i++) {
 		while (i2<i&&sq(ps[i].F-ps[i2].F)>d) {
-			pss.erase({ps[i2].S, ps[i2].F});
-			i2++;
+			pss.erase({ps[i2].S, ps[i2].F});i2++;
 		}
 		auto it=pss.lower_bound({ps[i].S-csqrt(d), -inf});
 		for (;it!=pss.end();it++) {

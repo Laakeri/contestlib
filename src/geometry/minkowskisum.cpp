@@ -11,9 +11,7 @@
 using namespace std;
 typedef long double ld;
 typedef long long ll;
-// Coordinate type
-typedef ll CT;
-typedef complex<CT> co;
+typedef complex<ll> co;
 ll ccw(co a, co b, co c) {
 	return ((c-a)*conj(b-a)).Y;
 }
@@ -28,12 +26,12 @@ bool cp(pair<co, pair<int, int> > p1, pair<co, pair<int, int> > p2) {
 		return ar(p1.F)<ar(p2.F);
 	}
 	assert((ccw({0, 0}, p1.F, p2.F)==0)==(ccw({0, 0}, p2.F, p1.F)==0));
-	if (ccw({0, 0}, p1.F, p2.F)==0){
+	if (ccw({0, 0}, p1.F, p2.F)==0) {
 		return p1.S>p2.S;
 	}
 	return ccw({0, 0}, p2.F, p1.F)>0;
 }
-vector<co> minkowski(vector<co>&a, vector<co>&b) {
+vector<co> minkowski(vector<co>& a, vector<co>& b) {
 	int n=a.size();
 	int m=b.size();
 	if (n==0) return b;
@@ -79,15 +77,13 @@ vector<co> minkowski(vector<co>&a, vector<co>&b) {
 		if (pp[i].S.F!=pp[i+1].S.F) {
 			if (pp[i].S.F==1) ad=a[(pp[i].S.S+1+f1)%n]+b[(pp[i+1].S.S+f2)%m];
 			else ad=b[(pp[i].S.S+1+f2)%m]+a[(pp[i+1].S.S+f1)%n];
-			ad-=s;
-			break;
+			ad-=s;break;
 		}
 	}
 	s=ad;
 	vector<co> ret(pp.size());
 	for (int i=0;i<(int)pp.size();i++) {
-		ret[i]=s;
-		s+=pp[i].F;
+		ret[i]=s;s+=pp[i].F;
 	}
 	return ret;
 }
