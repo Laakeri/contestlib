@@ -10,7 +10,7 @@
 using namespace std;
 struct Bridges {
 	vector<int> c, h;
-	void dfs(vector<pair<int, int> >* g, int x, int pe, int d, vector<int>& ns) {
+	void dfs(vector<pair<int, int> >* g, int x, int pe, int d, vector<int>& ns){
 		if (h[x]) return;
 		h[x]=d;ns.push_back(x);
 		for (auto nx:g[x]) {

@@ -1,6 +1,7 @@
 // TCR
 // (Generalised) Chinese remainder theorem (for arbitrary moduli):
-// Solves x from system of equations x == a_i (mod m_i), giving answer modulo m = lcm(m_1,...,m_n)
+// Solves x from system of equations x == a_i (mod m_i),
+// giving answer modulo m = lcm(m_1,...,m_n)
 // Runs in O(log(m)+n) time
 // Overflows only if m overflows
 // Returns {1, {x, m}} if solution exists, and {-1, {0,0}} otherwise

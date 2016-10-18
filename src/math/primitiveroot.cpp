@@ -25,7 +25,7 @@ ll primitiveRoot(ll p) {
 	if (n>1) fact.push_back (n);
 	for (ll res=2;res<=p;res++) {
 		bool ok = true;
-		for (int i=0;i<(int)fact.size()&&ok;i++) ok&=pot(res, phi/fact[i], p)!=1;
+		for (int i=0;i<(int)fact.size()&&ok;i++)ok&=pot(res, phi/fact[i], p)!=1;
 		if (ok)  return res;
 	}
 	return -1;

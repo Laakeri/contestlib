@@ -28,9 +28,9 @@ vector<co> convexHull(vector<co> ps) {
 	vector<co> hull;hull.push_back(ps[0]);
 	for (int d=0;d<2;d++) {
 		if (d) reverse(ps.begin(), ps.end());
-		int s=hull.size();
+		size_t s=hull.size();
 		for (int i=1;i<n;i++) {
-			while ((int)hull.size()>s&&!ccw(hull[hull.size()-2],hull.back(),ps[i])){
+			while (hull.size()>s&&!ccw(hull[hull.size()-2],hull.back(),ps[i])) {
 				hull.pop_back();
 			}
 			hull.push_back(ps[i]);
