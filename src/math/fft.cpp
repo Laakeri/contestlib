@@ -15,9 +15,7 @@ vector<co> fft(vector<co> x, int d) {
 			u*=2;
 			if (i&j) u++;
 		}
-		if (i<u) {
-			swap(x[i], x[u]);
-		}
+		if (i<u) swap(x[i], x[u]);
 	}
 	for (int m=2;m<=n;m*=2) {
 		co wm=exp(co{0, d*2*PI/m});
@@ -33,9 +31,7 @@ vector<co> fft(vector<co> x, int d) {
 		}
 	}
 	if (d==-1) {
-		for (int i=0;i<n;i++) {
-			x[i]/=n;
-		}
+		for (int i=0;i<n;i++) x[i]/=n;
 	}
 	return x;
 }
@@ -44,12 +40,8 @@ vector<ll> conv(vector<ll> a, vector<ll> b) {
 	int bs=b.size();
 	vector<co> aa(as);
 	vector<co> bb(bs);
-	for (int i=0;i<as;i++) {
-		aa[i]=a[i];
-	}
-	for (int i=0;i<bs;i++) {
-		bb[i]=b[i];
-	}
+	for (int i=0;i<as;i++) aa[i]=a[i];
+	for (int i=0;i<bs;i++) bb[i]=b[i];
 	int n=1;
 	while (n<as+bs-1) n*=2;
 	aa.resize(n*2);
@@ -57,15 +49,11 @@ vector<ll> conv(vector<ll> a, vector<ll> b) {
 	aa=fft(aa, 1);
 	bb=fft(bb, 1);
 	vector<co> c(2*n);
-	for (int i=0;i<2*n;i++) {
-		c[i]=aa[i]*bb[i];
-	}
+	for (int i=0;i<2*n;i++) c[i]=aa[i]*bb[i];
 	c=fft(c, -1);
 	c.resize(as+bs-1);
 	vector<ll> r(as+bs-1);
-	for (int i=0;i<as+bs-1;i++) {
-		r[i]=(ll)round(c[i].real());
-	}
+	for (int i=0;i<as+bs-1;i++) r[i]=(ll)round(c[i].real());
 	return r;
 }
 int main() {

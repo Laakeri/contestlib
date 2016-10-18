@@ -22,16 +22,12 @@ int gaussD (vector<vector<ld> > a, vector<ld>& ans) {
 			if (abs(a[i][col])>abs(a[sel][col])) sel=i;
 		}
 		if (abs(a[sel][col])<eps) continue;
-		for (int i=col;i<=m;i++) {
-			swap (a[sel][i], a[row][i]);
-		}
+		for (int i=col;i<=m;i++) swap (a[sel][i], a[row][i]);
 		where[col]=row;
 		for (int i=0;i<n;i++) {
 			if (i!=row) {
 				ld c=a[i][col]/a[row][col];
-				for (int j=col;j<=m;j++) {
-					a[i][j]-=a[row][j]*c;
-				}
+				for (int j=col;j<=m;j++) a[i][j]-=a[row][j]*c;
 			}
 		}
 		row++;
@@ -42,9 +38,7 @@ int gaussD (vector<vector<ld> > a, vector<ld>& ans) {
 	}
 	for (int i=0;i<n;i++) {
 		ld sum=0;
-		for (int j=0;j<m;j++) {
-			sum+=ans[j]*a[i][j];
-		}
+		for (int j=0;j<m;j++) sum+=ans[j]*a[i][j];
 		if (abs(sum-a[i][m])>eps) return 0;
 	}
 	for (int i=0;i<m;i++) {
@@ -67,9 +61,7 @@ int gaussM(vector<bitset<M> > a, int n, int m, bitset<M-1>& ans) {
 		if (!a[row][col]) continue;
 		where[col]=row;
 		for (int i=0;i<n;i++) {
-			if (i!=row&&a[i][col]) {
-				a[i]^=a[row];
-			}
+			if (i!=row&&a[i][col]) a[i]^=a[row];
 		}
 		row++;
 	}
@@ -79,12 +71,8 @@ int gaussM(vector<bitset<M> > a, int n, int m, bitset<M-1>& ans) {
 	}
 	for (int i=0;i<n;i++) {
 		int sum=0;
-		for (int j=0;j<m;j++) {
-			sum^=ans[j]*a[i][j];
-		}
-		if (sum!=a[i][m]){
-			return 0;
-		}
+		for (int j=0;j<m;j++) sum^=ans[j]*a[i][j];
+		if (sum!=a[i][m]) return 0;
 	}
 	for (int i=0;i<m;i++){
 		if (where[i]==-1) return 2;

@@ -19,19 +19,16 @@ bool is_w(ll a, ll even, ll odd, ll p) {
 	if (u==1) return 0;
 	for (ll j=1;j<even;j*=2) {
 		if (u==p-1) return 0;
-		u*=u;
-		u%=p;
+		u*=u;u%=p;
 	}
 	return 1;
 }
 bool isPrime(ll p) {
 	if (p==2) return 1;
 	if (p<=1||p%2==0) return 0;
-	ll odd=p-1;
-	ll even=1;
+	ll odd=p-1;ll even=1;
 	while (odd%2==0) {
-		even*=2;
-		odd/=2;
+		even*=2;odd/=2;
 	}
 	ll b[7]={2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 	for (ll i=0;i<7;i++) {

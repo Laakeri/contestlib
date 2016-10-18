@@ -14,8 +14,7 @@ ll pot(ll x, ll p, ll mod) {
 }
 ll primitiveRoot(ll p) {
 	vector<ll> fact;
-	ll phi=p-1;
-	ll n=phi;
+	ll phi=p-1;ll n=phi;
 	for (ll i=2;i*i<=n;i++) {
 		if (n%i==0) {
 			fact.push_back(i);

@@ -1,5 +1,6 @@
 // TCR
 // Berlekamp massey
+// Give a sequence of integers in constructor and query with get(index)
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -17,44 +18,35 @@ ll invp(ll a, ll p) {
 vector<ll> solve(vector<ll> S, ll mod) {
 	vector<ll> C = {1};
 	vector<ll> B = {1};
-	ll L = 0;
-	ll m = 1;
-	ll b = 1;
-	ll N = S.size();
+	ll L = 0;ll m = 1;ll b = 1;ll N = S.size();
 	for (ll i = 0; i < N; i++) {
 		ll d = S[i];
 		for (ll j = 1; j <= L; j++) {
-			d += C[j]*S[i - j];
-			d %= mod;
+			d += C[j]*S[i - j];d %= mod;
 		}
 		if (d == 0) {
 			m++;
 		} else if (2*L <= i) {
 			vector<ll> T = C;
 			ll a = (invp(b, mod)*d)%mod;
-			for (int j=0;j<i+1-2*L;j++){
+			for (int j=0;j<i+1-2*L;j++) {
 				C.push_back(0);
 			}
 			L=i+1-L;
 			for (ll j = m; j <= L; j++) {
-				C[j] -= a*B[j - m];
-				C[j] %= mod;
+				C[j] -= a*B[j - m];C[j] %= mod;
 			}
-			B = T;
-			b = d;
-			m = 1;
+			B = T;b = d;m = 1;
 		} else {
 			ll a = (invp(b, mod)*d)%mod;
 			for (ll j = m; j < m+(int)B.size(); j++) {
-				C[j] -= a*B[j - m];
-				C[j] %= mod;
+				C[j] -= a*B[j - m];C[j] %= mod;
 			}
 			m++;
 		}
 	}
 	for (ll i = 0; i <= L; i++) {
-		C[i] += mod;
-		C[i] %= mod;
+		C[i] += mod;C[i] %= mod;
 	}
 	return C;
 }
@@ -83,17 +75,17 @@ struct LinearRecurrence {
 			m=pot(m, p/2);
 			return mul(m, m);
 		}
-		else{
+		else {
 			return mul(m, pot(m, p-1));
 		}
 	}
-	ll get(ll i){
-		if (i<(ll)mat.size()){
-			return seq[i];
+	ll get(ll index) {
+		if (index<(ll)mat.size()) {
+			return seq[index];
 		}
-		vector<vector<ll> > a=pot(mat, i-(ll)mat.size()+1);
+		vector<vector<ll> > a=pot(mat, index-(ll)mat.size()+1);
 		ll v=0;
-		for (int i=0;i<(int)mat.size();i++){
+		for (int i=0;i<(int)mat.size();i++) {
 			v+=a[0][i]*seq[(int)mat.size()-i-1];
 			v%=mod;
 		}
@@ -108,10 +100,10 @@ struct LinearRecurrence {
 		for (int i=0;i<n;i++) {
 			mat[i].resize(n);
 		}
-		for (int i=0;i<n;i++){
+		for (int i=0;i<n;i++) {
 			mat[0][i]=(mod-C[i+1])%mod;
 		}
-		for (int i=1;i<n;i++){
+		for (int i=1;i<n;i++) {
 			mat[i][i-1]=1;
 		}
 	}
