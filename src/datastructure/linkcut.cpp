@@ -1,5 +1,6 @@
 // TCR
 // Link/cut tree. All operations are amortized O(log n) time
+// Use functions link, cut and rootid for black box forest dynamic connectivity
 #include <bits/stdc++.h>
 using namespace std;
 struct Node {
@@ -29,16 +30,14 @@ struct Node {
 };
 struct LinkCut {
 	void rot(Node* x) {
-		Node* p=x->p;
-		int d=x->dir();
+		Node* p=x->p;int d=x->dir();
 		if (!p->isr()) {
 			p->p->setc(x, p->dir());
 		}
 		else {
 			x->p=p->p;
 		}
-		p->setc(x->c[!d], d);
-		x->setc(p, !d);
+		p->setc(x->c[!d], d);x->setc(p, !d);
 	}
 	void pp(Node* x) {
 		if (!x->isr()) pp(x->p);
@@ -59,36 +58,23 @@ struct LinkCut {
 	Node* expose(Node* x) {
 		Node* q=0;
 		for (;x;x=x->p) {
-			splay(x);
-			x->c[1]=q;
-			q=x;
+			splay(x);x->c[1]=q;q=x;
 		}
 		return q;
 	}
 	void evert(Node* x) {
-		x=expose(x);
-		x->rev^=1;
-		x->push();
+		x=expose(x);x->rev^=1;x->push();
 	}
 	void link(Node* x, Node* y) {
-		evert(x);
-		evert(y);
-		splay(y);
-		x->setc(y, 1);
+		evert(x);evert(y);splay(y);x->setc(y, 1);
 	}
 	void cut(Node* x, Node* y) {
-		evert(x);
-		expose(y);
-		splay(x);
-		x->c[1]=0;
-		y->p=0;
+		evert(x);expose(y);splay(x);x->c[1]=0;y->p=0;
 	} 
 	int rootid(Node* x) {
-		expose(x);
-		splay(x);
+		expose(x);splay(x);
 		while(x->c[0]) {
-			x=x->c[0];
-			x->push();
+			x=x->c[0];x->push();
 		}
 		splay(x);
 		return x->id;

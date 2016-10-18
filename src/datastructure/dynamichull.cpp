@@ -8,8 +8,7 @@ using namespace std;
 typedef long long ll;
 const ll isQuery=-(1LL<<62);
 struct Line {
-	ll m, b;
-	int id;
+	ll m, b;int id;
 	Line(ll m_, ll b_, int id_) : m(m_), b(b_), id(id_) {}
 	mutable multiset<Line>::iterator it,e;
 	const Line* succ() const {

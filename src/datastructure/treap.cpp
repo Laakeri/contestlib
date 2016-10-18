@@ -22,13 +22,11 @@ void upd(pnode t) {
 }
 // Put lazy updates here
 void push(pnode t) {
-	if (t) {// Do lazy update
-	}
+	if (t) {}// Lazy update
 }
 // Merges trees l and r into tree t
 void merg(pnode& t, pnode l, pnode r) {
-	push(l);
-	push(r);
+	push(l);push(r);
 	if (!l) t=r;
 	else if(!r) t=l;
 	else {

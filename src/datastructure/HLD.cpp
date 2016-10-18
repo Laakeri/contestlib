@@ -15,8 +15,7 @@ struct HLD {
 		aps[x]=1;
 		for (int nx:g[x]) {
 			if (nx!=p[x]) {
-				p[nx]=x;
-				dfs1(g, nx);
+				p[nx]=x;dfs1(g, nx);
 				aps[x]+=aps[nx];
 			}
 		}
@@ -41,8 +40,7 @@ struct HLD {
 		}
 	}
 	HLD(vector<int>* g, int n) : aps(n+1), nPath(n+1), nPathId(n+1), p(n+1) {
-		index=0;
-		dfs1(g, 1);
+		index=0;dfs1(g, 1);
 		dfs2(g, 1, -1, 0);
 	}
 	vector<pair<pair<int, int>, pair<int, int> > > getPath(int a, int b) {
