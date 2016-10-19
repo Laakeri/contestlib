@@ -6,7 +6,6 @@
 * Half plane intersection
 
 ##Strings:
-* Faster suffix array?
 
 ##Graphs:
 * How to implement ford fulkerson/scaling flow? Flow matrix requires O(n^2) space or O(log n) extra time but the answer is usually easier to reconstruct from it than from the edge representation.
@@ -19,9 +18,9 @@
 
 ##Numeric:
 * Numerical integration
+* Improve FFT
 
 ##Test:
-* Suffix array
 * Tangents of convex hulls
 * performance of simplex
 

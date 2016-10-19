@@ -4,8 +4,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 vector<int> lcpArray(vector<int> s, vector<int> sa) {
-	int n=s.size();
-	int k=0;
+	int n=s.size(), k=0;
 	vector<int> ra(n), lcp(n);
 	for (int i=0;i<n;i++) ra[sa[i]]=i;
 	for (int i=0;i<n;i++) {
