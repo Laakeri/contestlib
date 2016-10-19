@@ -14,7 +14,7 @@ int main(){
 	int n=24;
 	cout<<(n&-n)<<endl;// Smallest bit set. Should print 8
 	cout<<__builtin_popcountll(n)<<endl;// Remember ll when using 64bit
-	// Compute the next number that has the same number of bits as n
+	// Compute the next number that has the same number of bits set as n
 	// Returns -1 for 0
 	int t=n|(n-1);
 	int w=(t + 1) | (((~t & -~t) - 1) >> (__builtin_ctz(n) + 1));
