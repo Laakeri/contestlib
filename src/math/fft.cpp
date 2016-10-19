@@ -30,24 +30,17 @@ vector<co> fft(vector<co> x, int d) {
 			}
 		}
 	}
-	if (d==-1) {
-		for (int i=0;i<n;i++) x[i]/=n;
-	}
+	if (d==-1) for (int i=0;i<n;i++) x[i]/=n;
 	return x;
 }
-vector<ll> conv(vector<ll> a, vector<ll> b) {
-	int as=a.size();
-	int bs=b.size();
-	vector<co> aa(as);
-	vector<co> bb(bs);
-	for (int i=0;i<as;i++) aa[i]=a[i];
-	for (int i=0;i<bs;i++) bb[i]=b[i];
+vector<ll> conv(vector<ll> a, vector<ll> b){
+	int as=a.size(), bs=b.size();
 	int n=1;
 	while (n<as+bs-1) n*=2;
-	aa.resize(n*2);
-	bb.resize(n*2);
-	aa=fft(aa, 1);
-	bb=fft(bb, 1);
+	vector<co> aa(n*2), bb(n*2);
+	for (int i=0;i<as;i++) aa[i]=a[i];
+	for (int i=0;i<bs;i++) bb[i]=b[i];
+	aa=fft(aa, 1);bb=fft(bb, 1);
 	vector<co> c(2*n);
 	for (int i=0;i<2*n;i++) c[i]=aa[i]*bb[i];
 	c=fft(c, -1);
@@ -56,12 +49,27 @@ vector<ll> conv(vector<ll> a, vector<ll> b) {
 	for (int i=0;i<as+bs-1;i++) r[i]=(ll)round(c[i].real());
 	return r;
 }
+// Double FFT trick, not necessary
+pair<vector<co>, vector<co> > tfft(vector<co>& a, vector<co>& b, int d) {
+	vector<co> fv(a.size());
+	for (int i=0;i<(int)a.size();i++) fv[i]=a[i]+co(0, 1)*b[i];
+	vector<co> r=fft(fv, d);
+	vector<co> r1(a.size()), r2(a.size());
+	for (int i=0;i<(int)a.size();i++) {
+		if (d==-1||i==0||i==(int)a.size()/2) {
+			r1[i]=r[i].real();r2[i]=r[i].imag();
+		} else {
+			co t=r[i]-r[(int)a.size()-i];
+			r1[i]={r[i].real()-t.real()/2, t.imag()/2};
+			r2[i]=(r[i]-r1[i])*co(0, -1);
+		}
+	}
+	return {r1, r2};
+}
 int main() {
 	// Shoud print 12 11 30 7
 	vector<ll> a={3, 2, 7};
 	vector<ll> b={4, 1};
 	vector<ll> c=conv(a, b);
-	for (ll t:c) {
-		cout<<t<<endl;
-	}
+	for (ll t:c) cout<<t<<endl;
 }
