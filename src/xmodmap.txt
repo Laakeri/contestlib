@@ -1,4 +1,4 @@
-// TCR
+not for nwerc// TCR
 xmodmap -pke > lol
 49 vasen ylä
 133 windows
