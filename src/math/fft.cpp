@@ -33,7 +33,7 @@ vector<co> fft(vector<co> x, int d) {
 	if (d==-1) for (int i=0;i<n;i++) x[i]/=n;
 	return x;
 }
-vector<ll> conv(vector<ll> a, vector<ll> b){
+vector<ll> conv(const vector<ll>& a, const vector<ll>& b) {
 	int as=a.size(), bs=b.size();
 	int n=1;
 	while (n<as+bs-1) n*=2;
