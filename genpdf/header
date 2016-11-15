@@ -1,4 +1,4 @@
-\documentclass[9pt,landscape,twocolumn,a4paper]{article}
+\documentclass[8pt,landscape,twocolumn,a4paper]{article}
 \PassOptionsToPackage{dvipsnames}{xcolor}
 \usepackage{fancyhdr}
 \usepackage{xcolor}
