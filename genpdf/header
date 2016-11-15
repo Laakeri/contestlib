@@ -1,4 +1,4 @@
-\documentclass[8pt,landscape,twocolumn,a4paper]{article}
+\documentclass[9pt,landscape,twocolumn,a4paper]{article}
 \PassOptionsToPackage{dvipsnames}{xcolor}
 \usepackage{fancyhdr}
 \usepackage{xcolor}
@@ -18,15 +18,15 @@
 \cfoot{}
 \rfoot{}
 
-\hspace*{-0.55cm}\begin{minipage}{\textwidth}
-\begin{center}\includegraphics[width=22cm]{hylogo.pdf}\end{center}
-\end{minipage}
-\clearpage
-\begin{minipage}{\textwidth}
-\vspace*{1.4cm}
-\begin{center}\includegraphics[width=23cm, trim=0 0 5 0]{motivaatiovalas.pdf}\end{center}
-\end{minipage}
+%\hspace*{-0.55cm}\begin{minipage}{\textwidth}
+%\begin{center}\includegraphics[width=22cm]{hylogo.pdf}\end{center}
+%\end{minipage}
+%\clearpage
+%\begin{minipage}{\textwidth}
+%\vspace*{1.4cm}
+%\begin{center}\includegraphics[width=23cm, trim=0 0 5 0]{motivaatiovalas.pdf}\end{center}
+%\end{minipage}
 \clearpage
 \setlength{\columnseprule}{0.4pt}
-
+\fontsize{0.33cm}{0.37cm}
 \tableofcontents
