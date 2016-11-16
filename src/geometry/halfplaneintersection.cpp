@@ -3,7 +3,7 @@
 // The allowed half plane is the left side of the p1 -> p2 vector
 // maxD defines the bounding square so that the resulting polygon is never infinite
 // May return many points even though the intersection is empty.
-// Compute the are to check the emptiness.
+// Compute the are to check the emptiness. Can return nan if empty, so check isnan
 #include <bits/stdc++.h>
 #define X real()
 #define Y imag()
