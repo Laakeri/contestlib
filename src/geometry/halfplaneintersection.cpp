@@ -1,7 +1,7 @@
 // TCR
 // getHPI returns the points of the half place intersection in the ccw order
 // The allowed half plane is the left side of the p1 -> p2 vector
-// maxD defines the bounding square so that the returned polygon is never infinite
+// maxD defines the bounding square so that the resulting polygon is never infinite
 // May return many points even though the intersection is empty.
 // Compute the are to check the emptiness.
 #include <bits/stdc++.h>

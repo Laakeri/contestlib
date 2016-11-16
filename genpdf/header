@@ -11,7 +11,7 @@
 \setlength\columnsep{20pt}
 \begin{document}
 \pagestyle{fancy}
-\lhead{\Huge University of Helsinki}
+\lhead{\Huge University of Helsinki - Game of Nolife}
 \chead{}
 \rhead{\Huge \thepage}
 \lfoot{}
@@ -28,5 +28,5 @@
 %\end{minipage}
 \clearpage
 \setlength{\columnseprule}{0.4pt}
-\fontsize{0.33cm}{0.37cm}
+\fontsize{0.33cm}{0.375cm}
 \tableofcontents
