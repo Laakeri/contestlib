@@ -3,23 +3,27 @@
 // The allowed half plane is the left side of the p1 -> p2 vector
 // maxD defines the bounding square so that the resulting polygon is never infinite
 // May return many points even though the intersection is empty.
-// Compute the are to check the emptiness. Can return nan if empty, so check isnan
+// Compute the area to check the emptiness.
+// May return duplicate points and is generally kind of numerically unstable.
 #include <bits/stdc++.h>
 #define X real()
 #define Y imag()
+#define F first
+#define S second
 using namespace std;
 typedef long double ld;
 typedef complex<ld> co;
-const ld eps=1e-15;
-const ld maxD=1e9;
+const ld eps=1e-14;
+const ld maxD=1e8;
 ld ccw(co a, co b) {
 	return (b*conj(a)).Y;
 }
-co isLL(co a, co b, co c, co d) {
+pair<int, co> isLL(co a, co b, co c, co d) {
 	co u=(c-a)/(b-a);
 	co v=(d-a)/(b-a);
+	if (abs(v.Y-u.Y)<eps) return {0, 0};
 	ld p=(v*conj(u)).Y/(v.Y-u.Y);
-	return a*(1-p)+b*p;
+	return {1, a*(1-p)+b*p};
 }
 int ar(co x) {
 	if (x.Y>=0&&x.X<0) return 1;
@@ -43,8 +47,8 @@ struct hp_t {
 	}
 };
 bool checkhp(hp_t h1, hp_t h2, hp_t h3) {
-	co p=isLL(h1.p1, h1.p2, h2.p1, h2.p2);
-	return ccw(p-h3.p1, h3.p2-h3.p1)>eps;
+	auto p=isLL(h1.p1, h1.p2, h2.p1, h2.p2);
+	return p.F==1&&ccw(p.S-h3.p1, h3.p2-h3.p1)>-eps;
 }
 vector<co> getHPI(vector<hp_t> hp) {
 	hp.push_back({{-maxD, -maxD}, {maxD, -maxD}});
@@ -68,7 +72,7 @@ vector<co> getHPI(vector<hp_t> hp) {
 	while (dq.size()>1) {
 		hp_t tmp = dq.front();
 		dq.pop_front();
-		res.push_back(isLL(tmp.p1, tmp.p2, dq.front().p1, dq.front().p2));
+		res.push_back(isLL(tmp.p1, tmp.p2, dq.front().p1, dq.front().p2).S);
 	}
 	return res;
 }
