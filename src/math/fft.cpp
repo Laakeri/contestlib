@@ -1,70 +1,60 @@
 // TCR
 // Fast Fourier transform and convolution using it
 // O(n log n)
+// Is accurate with integers if the numbers of the result array are <= 4e15
+// Also accurate if input <= 1e6 and the lengths of input arrays are 2e5
+// Can be speed up by a factor of 2 by implementing the complex class
 #include <bits/stdc++.h>
 using namespace std;
 typedef long double ld;
 typedef long long ll;
 typedef complex<ld> co;
-const ld PI=atan2(0, -1);
-vector<co> fft(vector<co> x, int d) {
-	int n=x.size();
+const ld PI=atan2((ld)0, (ld)-1);
+void fft(vector<co>&a, int n, int k, int d) {
+	vector<co> ww(n);
+	ww[1]=co(1, 0);
+	for (int t=0;t<k-1;t++) {
+		co c=polar((ld)1, PI/n*(1<<(k-1-t)));
+		int p2=(1<<t),p3=p2*2;
+		for (int j=p2;j<p3;j++) ww[j*2+1]=(ww[j*2]=ww[j])*c;
+	}
 	for (int i=0;i<n;i++) {
 		int u=0;
-		for (int j=1;j<n;j*=2) {
-			u*=2;
-			if (i&j) u++;
-		}
-		if (i<u) swap(x[i], x[u]);
+		for (int j=1;j<n;j*=2) {u*=2;if (i&j) u++;}
+		if (i<u) swap(a[i], a[u]);
 	}
-	for (int m=2;m<=n;m*=2) {
-		co wm=exp(co{0, d*2*PI/m});
-		for (int k=0;k<n;k+=m) {
-			co w=1;
-			for (int j=0;j<m/2;j++) {
-				co t=w*x[k+j+m/2];
-				co u=x[k+j];
-				x[k+j]=u+t;
-				x[k+j+m/2]=u-t;
-				w*=wm;
+	if (d==-1) for (int i=0;i<n;i++) a[i]=conj(a[i]);
+	for (int l=1;l<n;l*=2) {
+		for (int i=0;i<n;i+=l) {
+			for (int it=0,j=i+l,w=l;it<l;it++,i++,j++) {
+				co t=a[j]*ww[w++];
+				a[j]=a[i]-t;
+				a[i]=a[i]+t;
 			}
 		}
 	}
-	if (d==-1) for (int i=0;i<n;i++) x[i]/=n;
-	return x;
 }
 vector<ll> conv(const vector<ll>& a, const vector<ll>& b) {
 	int as=a.size(), bs=b.size();
-	int n=1;
-	while (n<as+bs-1) n*=2;
-	vector<co> aa(n*2), bb(n*2);
-	for (int i=0;i<as;i++) aa[i]=a[i];
-	for (int i=0;i<bs;i++) bb[i]=b[i];
-	aa=fft(aa, 1);bb=fft(bb, 1);
-	vector<co> c(2*n);
-	for (int i=0;i<2*n;i++) c[i]=aa[i]*bb[i];
-	c=fft(c, -1);
-	c.resize(as+bs-1);
-	vector<ll> r(as+bs-1);
-	for (int i=0;i<as+bs-1;i++) r[i]=(ll)round(c[i].real());
-	return r;
-}
-// Double FFT trick, not necessary
-pair<vector<co>, vector<co> > tfft(vector<co>& a, vector<co>& b, int d) {
-	vector<co> fv(a.size());
-	for (int i=0;i<(int)a.size();i++) fv[i]=a[i]+co(0, 1)*b[i];
-	vector<co> r=fft(fv, d);
-	vector<co> r1(a.size()), r2(a.size());
-	for (int i=0;i<(int)a.size();i++) {
-		if (d==-1||i==0||i==(int)a.size()/2) {
-			r1[i]=r[i].real();r2[i]=r[i].imag();
-		} else {
-			co t=r[i]-r[(int)a.size()-i];
-			r1[i]={r[i].real()-t.real()/2, t.imag()/2};
-			r2[i]=(r[i]-r1[i])*co(0, -1);
-		}
+	if (as*bs==0) return {};
+	int k=0;
+	while ((1<<k)<as+bs-1) k++;
+	int n=1<<k;
+	vector<co> c(n+1);
+	for (int i=0;i<n;i++) {
+		if (i<as) c[i]=a[i];
+		if (i<bs) c[i]={c[i].real(), (ld)b[i]};
 	}
-	return {r1, r2};
+	fft(c, n, k, 1);
+	c[n]=c[0];
+	for (int i=0;i<=n-i;i++) {
+		c[i]=(c[i]*c[i]-conj(c[n-i]*c[n-i]))*co(0,(ld)-1/n/4);
+		c[n-i]=conj(c[i]);
+	}
+	fft(c, n, k, -1);
+	vector<ll> r(as+bs-1);
+	for (int i=0;i<as+bs-1;i++) r[i]=round(c[i].real());
+	return r;
 }
 int main() {
 	// Shoud print 12 11 30 7
