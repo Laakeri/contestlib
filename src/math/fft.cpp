@@ -10,7 +10,7 @@ typedef long double ld;
 typedef long long ll;
 typedef complex<ld> co;
 const ld PI=atan2((ld)0, (ld)-1);
-void fft(vector<co>&a, int n, int k, int d) {
+void fft(vector<co>&a, int n, int k) {
 	vector<co> ww(n);
 	ww[1]=co(1, 0);
 	for (int t=0;t<k-1;t++) {
@@ -23,7 +23,6 @@ void fft(vector<co>&a, int n, int k, int d) {
 		for (int j=1;j<n;j*=2) {u*=2;if (i&j) u++;}
 		if (i<u) swap(a[i], a[u]);
 	}
-	if (d==-1) for (int i=0;i<n;i++) a[i]=conj(a[i]);
 	for (int l=1;l<n;l*=2) {
 		for (int i=0;i<n;i+=l) {
 			for (int it=0,j=i+l,w=l;it<l;it++,i++,j++) {
@@ -45,19 +44,18 @@ vector<ll> conv(const vector<ll>& a, const vector<ll>& b) {
 		if (i<as) c[i]=a[i];
 		if (i<bs) c[i]={c[i].real(), (ld)b[i]};
 	}
-	fft(c, n, k, 1);
+	fft(c, n, k);
 	c[n]=c[0];
 	for (int i=0;i<=n-i;i++) {
-		c[i]=(c[i]*c[i]-conj(c[n-i]*c[n-i]))*co(0,(ld)-1/n/4);
+		c[i]=conj(c[i]*c[i]-conj(c[n-i]*c[n-i]))*co(0,(ld)1/n/4);
 		c[n-i]=conj(c[i]);
 	}
-	fft(c, n, k, -1);
+	fft(c, n, k);
 	vector<ll> r(as+bs-1);
 	for (int i=0;i<as+bs-1;i++) r[i]=round(c[i].real());
 	return r;
 }
-int main() {
-	// Shoud print 12 11 30 7
+int main() {// Shoud print 12 11 30 7
 	vector<ll> a={3, 2, 7};
 	vector<ll> b={4, 1};
 	vector<ll> c=conv(a, b);

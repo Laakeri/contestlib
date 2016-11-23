@@ -16,7 +16,6 @@
 
 ##Numeric:
 * Numerical integration
-* Improve FFT
 
 ##Test:
 * Tangents of convex hulls
