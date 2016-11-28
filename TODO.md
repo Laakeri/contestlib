@@ -23,7 +23,6 @@
 ##Math
 * Discrete root http://e-maxx-eng.github.io/algebra/discrete-root.html
 * Numerical integration
-* Fast Hadamar Transform (xor, and, or) convolution
 
 ##Test:
 * Tangents of convex hulls
