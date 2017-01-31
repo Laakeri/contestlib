@@ -1,6 +1,8 @@
 // TCR
 // Berlekamp massey
 // Give a sequence of integers in constructor and query with get(index)
+// Use just the solve to get the coefficients of the recursion
+// remember to negate the coefficients
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
