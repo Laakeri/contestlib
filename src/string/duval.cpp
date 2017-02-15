@@ -1,5 +1,6 @@
+// TCR
 // Finds the Lyndon decomposition of a string in O(n)
-// Returns the lyndon substrings as inclusive intervals
+// Returns the Lyndon substrings as inclusive intervals
 #include <bits/stdc++.h>
 using namespace std;
 vector<pair<int, int> > duval(vector<int> s) {
