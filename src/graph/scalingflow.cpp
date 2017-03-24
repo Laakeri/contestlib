@@ -9,19 +9,21 @@
 using namespace std;
 typedef long long ll;
 struct MaxFlow {
-	// Use vector<map<int, ll> > for sparse graphs
-	vector<vector<ll> > f;
-	vector<vector<int> > g;
+	struct e {
+		int to,r;
+		ll f;
+	};
+	vector<vector<e> > g;
 	vector<int> used;
 	int cc;
 	ll flow(int x, int t, ll fl, ll miv) {
 		if (x==t) return fl;
 		used[x]=cc;
-		for (int nx:g[x]) {
-			if (used[nx]!=cc&&f[x][nx]>=miv) {
-				ll r=flow(nx, t, min(fl, f[x][nx]), miv);
+		for (auto& nx:g[x]) {
+			if (used[nx.to]!=cc&&nx.f>=miv) {
+				ll r=flow(nx.to, t, min(fl, nx.f), miv);
 				if (r>0) {
-					f[x][nx]-=r;f[nx][x]+=r;
+					nx.f-=r;g[nx.to][nx.r].f+=r;
 					return r;
 				}
 			}
@@ -41,15 +43,8 @@ struct MaxFlow {
 		return r;
 	}
 	void addEdge(int a, int b, ll c) {
-		if (f[a][b]==0&&f[b][a]==0) {
-			g[a].push_back(b);
-			g[b].push_back(a);
-		}
-		f[a][b]+=c;
+		g[a].push_back({b, (int)g[b].size(), c});
+		g[b].push_back({a, (int)g[a].size()-1, 0});
 	}
-	MaxFlow(int n) : f(n+1), g(n+1), used(n+1) {
-		for (int i=1;i<=n;i++) {
-			f[i]=vector<ll>(n+1);
-		}
-	}
+	MaxFlow(int n) : g(n+1), used(n+1) {}
 };
