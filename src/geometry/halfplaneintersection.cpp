@@ -5,6 +5,7 @@
 // May return many points even though the intersection is empty.
 // Compute the area to check the emptiness.
 // May return duplicate points and is generally kind of numerically unstable.
+// coordinates<=1e6: eps in [1e-12, 1e-7] for ld and eps in [1e-9, 1e-7] for double
 #include <bits/stdc++.h>
 #define X real()
 #define Y imag()
@@ -39,7 +40,7 @@ struct hp_t {
 		return abs(b.X-o.b.X)<eps&&abs(b.Y-o.b.Y)<eps;
 	}
 	bool operator<(const hp_t& o) const {
-		if ((*this)==o){
+		if ((*this)==o) {
 			return d(o.a)<-eps;
 		}
 		return cp(b, o.b);
@@ -59,12 +60,12 @@ vector<co> getHPI(vector<hp_t> hp) {
 	hp.erase(unique(hp.begin(), hp.end()), hp.end());
 	int del=0;
 	vector<co> p;
-	for (int i=1;i<(int)hp.size();i++){
+	for (int i=1;i<(int)hp.size();i++) {
 		while ((int)p.size()>del&&hp[i].d(p.back())<eps) p.pop_back();
 		while ((int)p.size()>del&&hp[i].d(p[del])<eps) del++;
 		if (del==(int)p.size()&&ccw(hp[p.size()].b, hp[i].b)<eps) return {};
 		co np=getI(hp[i], hp[p.size()]);
-		if (hp[del].d(np)>-eps){
+		if (hp[del].d(np)>-eps) {
 			p.push_back(np);
 			hp[p.size()]=hp[i];
 		}
