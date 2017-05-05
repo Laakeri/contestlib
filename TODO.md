@@ -1,18 +1,18 @@
 #TODO
 
 * More compact code
+* Optimize font size before the final version
 
 ##Geometry:
 * Welzl's algorithm for minimum enclosing circle
 * Triangulation
+* 3d convex hull
 
 ##Strings:
 * Palindromic tree xD
 
 ##Graphs:
-* How to implement ford fulkerson/scaling flow? Flow matrix requires O(n^2) space or O(log n) extra time but the answer is usually easier to reconstruct from it than from the edge representation.
 * Hungarian algorithm
-* General matching
 * Min cost arborescence
 * Gomory-Hu tree
 
@@ -25,8 +25,6 @@
 * Numerical integration
 
 ##Test:
-* Tangents of convex hulls
-* Half plane intersection
 * Performance of simplex and write something about it
 
 ##Other:

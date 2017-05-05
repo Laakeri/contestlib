@@ -28,5 +28,5 @@
 %\end{minipage}
 \clearpage
 \setlength{\columnseprule}{0.4pt}
-\fontsize{0.31cm}{0.35cm}
+\fontsize{0.29cm}{0.33cm}
 \tableofcontents
