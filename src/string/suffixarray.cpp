@@ -2,6 +2,7 @@
 // Suffix array in O((n+S) log n)
 // S is the size of alphabet, meaning that 0<=s[i]<S for all i
 // You can change vector<int> s to string s. In that case S is 256
+// This is CIRCULAR SUFFIX ARRAY. Append $ to the string to make if non circular
 #include <bits/stdc++.h>
 using namespace std;
 vector<int> suffixArray(vector<int> s, int S) {
